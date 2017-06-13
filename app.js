@@ -3,7 +3,7 @@ require('dotenv').config()
 // modules
 const express = require('express')
 const hbs = require('express-handlebars')
-const port = process.env.port || 1130
+const port = process.env.port || 1126
 const path = require('path')
 const logger = require('morgan')
 const favicon = require('serve-favicon')
