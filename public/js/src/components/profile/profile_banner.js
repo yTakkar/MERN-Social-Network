@@ -2,6 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 import * as fn from '../../functions/functions'
 import * as follow_action from '../../rest_actions/follow_actions'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 import Create_note from '../others/create_note_comp'
 import Overlay from '../others/overlay_comp'
@@ -109,14 +110,17 @@ export default class Banner extends React.Component{
 
                 </div>
 
-                { creating_note ? <Overlay/> : null }
+                { (creating_note || view_followers || view_followings ) ? <Overlay/> : null }
+
                 { creating_note ? <Create_note dispatch={this.props.dispatch} close={this.toggle_} /> : null }
 
-                { view_followers ? <Overlay/> : null }
-                { view_followers ? <Followers dispatch={this.props.dispatch} followers={this.props.follow.followers} close={this.toggle_} /> : null }
+                { view_followers ? 
+                <Followers dispatch={this.props.dispatch} followers={this.props.follow.followers} close={this.toggle_} /> 
+                : null }
 
-                { view_followings ? <Overlay/> : null }
-                { view_followings ? <Followings dispatch={this.props.dispatch} followings={this.props.follow.followings} close={this.toggle_} /> : null }
+                { view_followings ? 
+                <Followings dispatch={this.props.dispatch} followings={this.props.follow.followings} close={this.toggle_} /> 
+                : null }
 
             </div>
         )

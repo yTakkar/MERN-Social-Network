@@ -17,7 +17,7 @@
 
     {{> needs}}
 
-    <div class="{{# if session.id }}header_loggedin{{else}}index_header{{/if}}">
+    <div class="{{#if session.id }}header_loggedin{{else}}index_header{{/if}}">
         <div class="right">
             <a href="/" class="">Home</a>
             {{# if session.id}}
