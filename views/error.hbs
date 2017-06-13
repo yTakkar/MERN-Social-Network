@@ -1,0 +1,17 @@
+{{> header}}
+
+<div class="notes_wrapper">
+    <div class="welcome_div error_div">
+        <img src="/images/error-3.svg" alt="">
+        <div class="error_bottom">
+            <a href="/" class="sec_btn error_home">Home</a>
+            {{# if session.id }}
+                <a href='/profile/{{ session.id }}' class="pri_btn error_login">Profile</a>
+            {{ else }}
+                <a href="/login" class="pri_btn error_login">Login</a>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+{{> footer}}
