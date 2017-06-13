@@ -3,7 +3,7 @@ import $ from 'jquery'
 import * as fn from '../../functions/functions'
 import * as follow_action from '../../rest_actions/follow_actions'
 
-import Create_note from './create_note_comp'
+import Create_note from '../others/create_note_comp'
 import Overlay from '../others/overlay_comp'
 import Followers from '../follow/followers_comp'
 import Followings from '../follow/followings_comp'

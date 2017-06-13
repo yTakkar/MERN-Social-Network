@@ -18,14 +18,14 @@ export default class Create_note extends React.Component{
             dataType: "JSON",
             success: data => {
                 fn.notify({ value: data.mssg })
-                dispatch(notes_actions.updateNotes(data))
+                dispatch ? dispatch(notes_actions.updateNotes(data)) : null
             }
         })
         close(e, "note")
     }
 
     render(){
-        let { dispatch, close } = this.props
+        let { close } = this.props
         return(
             <div class='create_note modal' onSubmit={this.addNote} >
                 <form>

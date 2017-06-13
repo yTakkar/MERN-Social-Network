@@ -10,87 +10,75 @@
   position: fixed;
   z-index: 1;
   top: 0px;
-}
 
-.index_header > .left{
-  display: inline-block;
-    float: left;
-}
-
-.index_header > .logo{
-  float: left;
-    display: inline-block;
-    position: absolute;
-    left: 5%;
-    top: 16px;
-    cursor: pointer;
-}
-
-.index_header > .logo > img{
-  position: absolute;
-  width: 35px;
-  top: -2px;
-  right: 125px;
-}
-
-.index_header .logo hr{
-  border: 0;
-  position: absolute;
-  border-left: 1px solid #000;
-  height: 35px;
-  left: 42px;
-  top: -2px;
-}
-
-.index_header > .logo > span{
-  font-size: 27px;
-  /*color: #5c92a9;*/
-  margin-left: 40px;
-  font-family: 'Satisfy', cursive;
-  font-weight: bold;
-  top: -3px;
-  position: relative;
-  left: 15px;
-}
-
-.index_header > .right{
-  float: right;
+  & .right{
+    float: right;
     position: relative;
     display: inline-block;
     right: 70px;
     top: 21px;
+
+    & a{
+      border: 1px solid @ee;
+      outline: none;
+      padding: 4px 16px;
+      border-radius: 3px;
+      font-size: 14px;
+      margin-right: 5px;
+      color: #3d464d;
+      background: @ff;
+
+      & a[href='help']{ margin-right: 0px; }
+
+      & .index_header > .right > a[href="about"]{ margin-right: 5px; }
+
+      &:hover{ background: @second_border; }
+
+      &:focus{ background: @second_border; }
+
+    }
+  
+  }
+
 }
 
-.index_header > .right::after{
-  content: "";
-  clear: both;
-}
-
-.index_header > .right > a{
-  border: 1px solid #eee;
-  outline: none;
-  padding: 4px 16px;
-  border-radius: 3px;
-  font-size: 14px;
-  margin-right: 5px;
-  color: #3d464d;
+.header_loggedin{
+  background: @ff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  position: fixed;
+  width: 100%;
+  height: 45px;
   background: white;
-}
+  z-index: 2;
+  top: 0px;
 
-.index_header > .right > a[href="help"]{
-  margin-right: 0px;
-}
+  & .right {
+    position: absolute;
+    float: left;
+    left: 30px;
+    overflow: inherit;
+    display: inline-block;
+    top: 8px;
+  }
 
-.index_header > .right > a:hover{
-  background: #f7f9fa;
-}
+  a{
+    font-size: 14px;
+    color: @dark;
+    margin-left: 7px;
+    padding: 5px 12px;
+    border-radius: 3px;
+    display: inline-block;
 
-.index_header > .right > a:focus{
-  background: #f7f9fa;
-}
+    &:hover{ background: @second_border; }
 
-.index_header > .right > a[href="about"]{
-  margin-right: 5px;
+    &:focus{ background: @second_border; }
+  
+  }
+
+  & .vp{
+    margin-left: 960px;
+  }
+
 }
 
 .log_sign{
@@ -207,7 +195,7 @@
           border-radius: 3px;
 
           &:hover{
-            background: #f7f9fa;
+            background: @second_border;
           }
 
           & .stat_hg{
@@ -286,146 +274,6 @@
   .note_title{
     margin-bottom: 4px;
     font-weight: 600;
-  }
-
-}
-
-.modal{
-  .center();
-  position: fixed !important;
-  .model_shadow();
-  width: 300px;
-  border-radius: 3px;
-  z-index: 2;
-  background: @ff;
-  font-size: 14px;
-
-  & .modal_no{
-    text-align: center;
-    position: relative;
-    top: 30px;
-    & img{ width: 150px; }
-  }
-
-  & .modal_header{
-    background: @header;
-    border-bottom: 1px solid @header_border;
-    padding: 10px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    font-weight: 600;
-  }
-
-  & .modal_middle{
-    padding: 10px;
-
-  }
-
-  & .modal_bottom{
-    display: block;
-    text-align: right;
-    padding: 9px 5px 12px 5px;
-    border-top: 1px solid @ee;
-    margin-top: 0px;
-
-    & a, & input[type='submit']{
-      display: inline-block;
-      padding: 4px 10px;
-      font-weight: 600;
-    }
-
-  }
-
-}
-
-.modal_big{
-  width: 400px;
-
-  & .modal_middle{
-    height: 450px;
-    position: relative;
-    overflow-y: scroll;
-
-    & .modal_main{
-
-      & .modal_items{
-        margin-bottom: 5px;
-        position: relative;
-        padding: 0px 5px 5px 5px;
-
-        & .modal_it_img{
-          position: relative;
-          display: inline-block;
-          height: 45px;
-          margin-left: 5px;
-
-          & img{ 
-            width: 45px;
-            height: 45px;
-            border-radius: 3px;
-          }
-
-        }
-
-        & .modal_it_content{
-          display: inline-block;
-          position: relative;
-          width: 83%;
-          margin-left: 8px;
-          top: -10px;
-
-          & .modal_it_info{
-            display: inline-block;
-            width: 100%;
-
-            & a.modal_it_username{
-              font-size: 14px;
-              color: @dark;
-              font-weight: 600;
-              display: block;
-              outline: none;
-
-              &:hover,&:focus{text-decoration: underline;}
-
-            }
-
-            & span.modal_it_light{
-              color: @d_light;
-              font-size: 13px;
-            }
-
-          }
-
-          & .modal_ff{
-            display: inline-block;
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            text-align: right;
-
-            & a{
-              display: inline-block;
-              padding: 5px 15px;
-              font-weight: 600;
-            }
-
-          }
-
-        }
-
-        & hr{
-          border-top-color: @ee;
-          margin-top: 3px;
-        }
-
-      }
-
-    }
-
-  }
-
-  & .modal_bottom{
-    margin-top: 1px;
   }
 
 }
@@ -646,15 +494,18 @@
   & .home_info{
     margin-bottom: 10px;
     background: @ff;
-    padding: 10px;
+    padding: 14px 10px;
     border: 1px solid @header_border;
     border-radius: 3px;
     font-size: 15px;
+
+    & a{
+      position: absolute;
+      right: 10px;
+      padding: 4px 12px;
+      top: 10px;
+    }
+
   }
-
-}
-
-// FOLLOWERS MODAL
-.followers{
 
 }
