@@ -1,1 +1,1 @@
-# MER-Social-Network
+# MERN-Social-Network
