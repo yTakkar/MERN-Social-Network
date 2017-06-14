@@ -15,27 +15,27 @@ export default class Follower_items extends React.Component{
 
     follow = e => {
         e.preventDefault()
-        let { follow_to, follow_to_username, dispatch } = this.props
-        let obj = {
-            user: follow_to,
-            username: follow_to_username,    // only when update_followings=true
-            dispatch,
-            update_followings: fn.MeOrNot(),
-            done: () => console.log('Followed')
-        }
+        let { follow_to, follow_to_username, dispatch } = this.props,
+            getid = $('#profile_data').data('getid'),
+            obj = {
+                user: follow_to,
+                username: follow_to_username,    // only when update_followings=true
+                dispatch,
+                update_followings: fn.MeOrNot(getid)
+            }
         fn.follow(obj)
         this.setState({ is_following: true })
     }
 
     unfollow = e => {
         e.preventDefault()
-        let { follow_to, dispatch } = this.props
-        let obj = {
-            user: follow_to,
-            dispatch,
-            update_followings: fn.MeOrNot(),
-            done: () => console.log('Unfollowed')
-        }
+        let { follow_to, dispatch } = this.props,
+            getid = $('#profile_data').data('getid'),
+            obj = {
+                user: follow_to,
+                dispatch,
+                update_followings: fn.MeOrNot(getid)
+            }
         fn.unfollow(obj)
         this.setState({ is_following: false })
     }
@@ -52,7 +52,7 @@ export default class Follower_items extends React.Component{
                 </div>
                 <div className="modal_it_content">
                     <div className="modal_it_info">
-                        <a href="#" class='modal_it_username' >{follow_to_username}</a>
+                        <a href={`/profile/${follow_to}`} class='modal_it_username' >{follow_to_username}</a>
                         <span class='modal_it_light' >{fn.time_ago(parseInt(follow_time))}</span>
                     </div>
                     <div className="modal_ff">

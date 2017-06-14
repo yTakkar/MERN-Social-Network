@@ -64,7 +64,8 @@ export default class View_note extends React.Component{
     render(){
         let { title, content, note_id, user, note_time, close, username, user_details: { id } } = this.props,
             { editing } = this.state,
-            session = $('#data').data('session')
+            session = $('#data').data('session'),
+            getid = $('#profile_data').data('getid')
 
         return(
             <div class='view_note modal'>
@@ -75,7 +76,7 @@ export default class View_note extends React.Component{
                     <div className="v_n_info">
                         <img src={`/users/${user}/user.jpg`} alt=""/>
                         <div className="v_n_left">
-                            <span className='v_n_username' >{username}</span>
+                            <a href={`/profile/${user}`} className='v_n_username' >{username}</a>
                             <span className="v_n_time">{fn.time_ago(parseInt(note_time))}</span>
                         </div>
                     </div>
@@ -94,7 +95,7 @@ export default class View_note extends React.Component{
                 </div>
                 <div className="v_n_bottom modal_bottom">
                     {
-                        fn.MeOrNot() ?
+                        fn.MeOrNot(getid) ?
                             editing ? <a 
                                         href="#" 
                                         className="v_n_edit sec_btn" 
@@ -104,7 +105,7 @@ export default class View_note extends React.Component{
                         : null
                     }   
                     {
-                        fn.MeOrNot() ? <a 
+                        fn.MeOrNot(getid) ? <a 
                                         href="#" 
                                         className={`v_n_delete sec_btn ${editing ? 'sec_btn_disabled' : '' } `} 
                                         onClick={this.delete_note} 

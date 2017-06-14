@@ -57,6 +57,7 @@ export default class Banner extends React.Component{
 
     render(){
         let { notes: {notes}, user: { user_details: { username, id, email, bio }}, follow: { followers, followings, profile_views } } = this.props,
+            getid = $('#profile_data').data('getid'),
             no_of_notes = notes.length,
             no_of_followers = followers.length,
             no_of_followings = followings.length,
@@ -100,7 +101,7 @@ export default class Banner extends React.Component{
 
                     <div className="user_buttons">
                         {
-                            fn.MeOrNot() ? 
+                            fn.MeOrNot(getid) ? 
                             <a href="#" className="create_note_btn pri_btn" id=""  onClick={e => this.toggle_(e, "note") }>Create note</a> : 
                             (is_following) ? 
                             <a href="#" className="unfollow pri_btn" onClick={this.unfollow} >Unfollow</a> :

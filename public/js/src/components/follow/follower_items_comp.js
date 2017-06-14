@@ -15,26 +15,28 @@ export default class Follower_items extends React.Component{
 
     follow = e => {
         e.preventDefault()
-        let { follow_by, follow_by_username, dispatch } = this.props
-        let obj = {
-            user: follow_by,
-            username: follow_by_username,    // only when update_followings=true
-            dispatch,
-            update_followings: fn.MeOrNot(),
-            done: () => this.setState({ is_following: true })
-        }
+        let { follow_by, follow_by_username, dispatch } = this.props,
+            getid = $('#profile_data').data('getid'),
+            obj = {
+                user: follow_by,
+                username: follow_by_username,    // only when update_followings=true
+                dispatch,
+                update_followings: fn.MeOrNot(getid),
+                done: () => this.setState({ is_following: true })
+            }
         fn.follow(obj)
     }
 
     unfollow = e => {
         e.preventDefault()
-        let { follow_by, dispatch } = this.props
-        let obj = {
-            user: follow_by,
-            dispatch,
-            update_followings: fn.MeOrNot(),
-            done: () => this.setState({ is_following: false })
-        }
+        let { follow_by, dispatch } = this.props,
+            getid = $('#profile_data').data('getid'),
+            obj = {
+                user: follow_by,
+                dispatch,
+                update_followings: fn.MeOrNot(getid),
+                done: () => this.setState({ is_following: false })
+            }
         fn.unfollow(obj)
     }
 
@@ -50,7 +52,7 @@ export default class Follower_items extends React.Component{
                 </div>
                 <div className="modal_it_content">
                     <div className="modal_it_info">
-                        <a href="#" class='modal_it_username' >{follow_by_username}</a>
+                        <a href={`/profile/${follow_by}`} class='modal_it_username' >{follow_by_username}</a>
                         <span class='modal_it_light' >{fn.time_ago(parseInt(follow_time))}</span>
                     </div>
                     <div className="modal_ff">

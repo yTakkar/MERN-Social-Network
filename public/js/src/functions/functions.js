@@ -171,12 +171,8 @@ const time_ago = time => {
   return time;
 }
 
-const MeOrNot = () => {
-  if($('#data').data('session') == $('#profile_data').data('getid')){
-    return true
-  } else {
-    return false
-  }
+const MeOrNot = user => {
+  return user == $('#data').data('session') ? true : false
 }
 
 const follow = options => {
@@ -186,7 +182,7 @@ const follow = options => {
     dispatch: null,
     update_followers: false,
     update_followings: false,
-    done: null
+    done: () => { return null }
   }
   let obj = { ...defaults, ...options }
   let { user, username, dispatch, update_followers, update_followings, done } = obj
@@ -221,7 +217,7 @@ const unfollow = options => {
     dispatch: null,
     update_followers: false,
     update_followings: false,
-    done: null
+    done: () => { return null }
   }
   let obj = { ...defaults, ...options }
   let { user, dispatch, update_followers, update_followings, done } = obj

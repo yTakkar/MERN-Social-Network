@@ -960,6 +960,11 @@ select:focus {
   display: block;
   font-weight: 600;
   font-size: 15px;
+  color: inherit;
+}
+.view_note .v_n_info .v_n_left .v_n_username:hover,
+.view_note .v_n_info .v_n_left .v_n_username:focus {
+  text-decoration: underline;
 }
 .view_note .v_n_info .v_n_left .v_n_time {
   font-size: 13px;
