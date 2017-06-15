@@ -941,50 +941,50 @@ select:focus {
 .view_note {
   width: 600px;
 }
-.view_note .v_n_info {
+.view_note .v_n_middle .v_n_info {
   margin-bottom: 5px;
 }
-.view_note .v_n_info img {
+.view_note .v_n_middle .v_n_info img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   display: inline-block;
 }
-.view_note .v_n_info .v_n_left {
+.view_note .v_n_middle .v_n_info .v_n_left {
   display: inline-block;
   margin-left: 5px;
   position: relative;
   top: -5px;
 }
-.view_note .v_n_info .v_n_left .v_n_username {
+.view_note .v_n_middle .v_n_info .v_n_left .v_n_username {
   display: block;
   font-weight: 600;
   font-size: 15px;
   color: inherit;
 }
-.view_note .v_n_info .v_n_left .v_n_username:hover,
-.view_note .v_n_info .v_n_left .v_n_username:focus {
+.view_note .v_n_middle .v_n_info .v_n_left .v_n_username:hover,
+.view_note .v_n_middle .v_n_info .v_n_left .v_n_username:focus {
   text-decoration: underline;
 }
-.view_note .v_n_info .v_n_left .v_n_time {
+.view_note .v_n_middle .v_n_info .v_n_left .v_n_time {
   font-size: 13px;
   color: #66757f;
   position: relative;
   top: -2px;
 }
-.view_note .v_n_title {
+.view_note .v_n_middle .v_n_title {
   font-weight: 600;
   display: block;
   margin-bottom: 3px;
   font-size: 15px;
   outline: none;
 }
-.view_note .v_n_content {
+.view_note .v_n_middle .v_n_content {
   display: block;
   outline: none;
 }
-.view_note .v_n_title[contenteditable='true'],
-.view_note .v_n_content[contenteditable='true'] {
+.view_note .v_n_middle .v_n_title[contenteditable='true'],
+.view_note .v_n_middle .v_n_content[contenteditable='true'] {
   border: 1px solid #54BBFF;
   padding: 5px 5px !important;
   border-radius: 2px;
@@ -992,8 +992,29 @@ select:focus {
 .view_note .v_n_bottom a {
   margin-left: 5px;
 }
-.view_note .v_n_cancel {
+.view_note .v_n_bottom .v_n_cancel {
   margin-right: 5px;
+}
+.view_note .v_n_bottom .v_n_int {
+  position: absolute;
+  color: #66757f;
+  bottom: 10px;
+  left: 10px;
+}
+.view_note .v_n_bottom .v_n_int span.like_unlike {
+  display: inline-block;
+  height: 24px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+.view_note .v_n_bottom .v_n_int span.like_unlike:hover {
+  color: #1b2733;
+  transform: scale(1.1);
+}
+.view_note .v_n_bottom .v_n_int .like_unlike_disabled {
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  color: #d8c3c3 !important;
 }
 .content_editor {
   margin-top: 5px;

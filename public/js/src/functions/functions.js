@@ -3,12 +3,10 @@ import * as follow_action from '../rest_actions/follow_actions'
 
 // FUNCTION FOR SHORTENING
 const nameShortener = (elem, length) => {
-  if (!parseInt(length)) { return; }
-  if (elem.length >= parseInt(length)) {
-    return elem.substr(0, length-2)+"..";
-  } else if (elem.length < parseInt(length)) {
-    return elem;
-  }
+  let parse = parseInt(length),
+      len = elem.length
+  if (!parse) { return; }
+  return (len >= parse) ? `${elem.substr(0, length-2)}..` : (len < parse) ? elem : null
 }
 
 // FUNCTION TO COPY SPECIFIED TEXT TO CLIPBOARD

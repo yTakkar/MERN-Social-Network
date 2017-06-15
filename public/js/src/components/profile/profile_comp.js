@@ -13,7 +13,8 @@ import Notes from './notes_comp'
     return {
         follow: store.follow,
         notes: store.notes,
-        user: store.user
+        user: store.user,
+        note_int: store.note_int
     }
 })
 

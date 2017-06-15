@@ -29,7 +29,7 @@ export default class Banner extends React.Component{
         }
     }
 
-    componentWillReceiveProps = ({ follow: { is_following, profile_views } }) => {
+    componentWillReceiveProps = ({ follow: { is_following } }) => {
         this.setState({ is_following })
     }
 

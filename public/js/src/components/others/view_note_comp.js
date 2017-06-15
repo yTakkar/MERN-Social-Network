@@ -1,11 +1,27 @@
 import React from 'react'
 import $ from 'jquery'
+import axios from 'axios'
+
 import * as notes_actions from '../../rest_actions/note_actions'
+import * as note_int_actions from '../../rest_actions/note_int_actions'
 import * as fn from '../../functions/functions'
 
 export default class View_note extends React.Component{
 
-    state = { editing: false }
+    state = { 
+        editing: false,
+        liked: false
+    }
+
+    componentWillMount = () => {
+        let { dispatch, note_id } = this.props
+        dispatch(note_int_actions.LikedOrNot(note_id))
+        dispatch(note_int_actions.likes(note_id))
+    }
+
+    componentWillReceiveProps = ({ note_int: { liked } }) => {
+        this.setState({ liked })
+    }
 
     delete_note = e => {
         let { note_id, dispatch, close } = this.props
@@ -61,9 +77,39 @@ export default class View_note extends React.Component{
 
     }
 
+    like = () => {
+        let { note_id: note, dispatch } = this.props
+        $.ajax({
+            url: '/api/like',
+            data: { note },
+            method: "POST",
+            dataType: "JSON",
+            success: data => {
+                fn.notify({ value: "Liked" })
+                dispatch(note_int_actions.liked(data))
+                this.setState({ liked: true })
+            }
+        })
+    }
+
+    unlike = () => {
+        let { note_id: note, dispatch } = this.props
+        $.ajax({
+            url: '/api/unlike',
+            data: { note },
+            method: "POST",
+            dataType: "JSON",
+            success: data => {
+                fn.notify({ value: "Unliked" })
+                dispatch(note_int_actions.unliked(note))
+                this.setState({ liked: false })
+            }
+        })
+    }
+
     render(){
         let { title, content, note_id, user, note_time, close, username, user_details: { id } } = this.props,
-            { editing } = this.state,
+            { editing, liked } = this.state,
             session = $('#data').data('session'),
             getid = $('#profile_data').data('getid')
 
@@ -94,6 +140,20 @@ export default class View_note extends React.Component{
                     >{fn.capitilize_first(content)}</span>
                 </div>
                 <div className="v_n_bottom modal_bottom">
+                    <div className="v_n_int">
+                        {
+                            liked ? 
+                            <span 
+                                className={`v_n_unlike like_unlike ${editing ? 'like_unlike_disabled' : '' }`} 
+                                onClick={this.unlike} 
+                            ><i class="material-icons">favorite</i></span>
+                            : 
+                            <span 
+                                className={`v_n_like like_unlike ${editing ? 'like_unlike_disabled' : ''}`} 
+                                onClick={this.like} 
+                            ><i class="material-icons">favorite_border</i></span>
+                        }
+                    </div>
                     {
                         fn.MeOrNot(getid) ?
                             editing ? <a 
@@ -105,11 +165,13 @@ export default class View_note extends React.Component{
                         : null
                     }   
                     {
-                        fn.MeOrNot(getid) ? <a 
-                                        href="#" 
-                                        className={`v_n_delete sec_btn ${editing ? 'sec_btn_disabled' : '' } `} 
-                                        onClick={this.delete_note} 
-                                    >Delete note</a> : null
+                        fn.MeOrNot(getid) ? 
+                            <a 
+                                href="#" 
+                                className={`v_n_delete sec_btn ${editing ? 'sec_btn_disabled' : '' } `} 
+                                onClick={this.delete_note} 
+                            >Delete note</a> 
+                        : null
                     }
                     <a href='#' className={`v_n_cancel pri_btn ${editing ? 'a_disabled' : '' } `} onClick={close}>Done</a>
                 </div>

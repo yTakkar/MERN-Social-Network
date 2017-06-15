@@ -31,7 +31,7 @@ export default class Note extends React.Component{
                         <span>{fn.capitilize_first(title)}</span>
                     </div>
                     <div className="note_content">
-                        <span>{fn.capitilize_first(content)}</span>
+                        <span>{fn.nameShortener(fn.capitilize_first(content), 500)}</span>
                     </div>
                 </div>
                 { this.state.viewing ? <Overlay/> : null }

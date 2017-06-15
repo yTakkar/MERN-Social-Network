@@ -160,4 +160,37 @@ app.post('/feeds', (req, res) => {
     .catch(err => res.json(err) )
 })
 
+// CHECK IF SESSION LIKED THE NOTE OR NOT
+app.post('/liked_or_not', (req, res) => {
+    db.query('SELECT COUNT(like_id) AS l FROM likes WHERE like_by = ? AND note_id = ?', [req.session.id, req.body.note])
+        .then(is => res.json((is[0].l == 1) ? true : false) )
+        .catch(err => res.json(err) )
+})
+
+// GET LIKES OF THE NOTE
+app.post('/likes', (req, res) => {
+    db.query('SELECT * FROM likes WHERE note_id=? ORDER BY like_id DESC', [req.body.note])
+        .then(likes => res.json(likes) )
+        .catch(err => res.json(err) )
+})
+
+// FOR LIKING THE NOTE
+app.post('/like', (req, res) => {
+    let insert = {
+        like_by: req.session.id,
+        like_by_username: req.session.username,
+        note_id: parseInt(req.body.note),
+        note_time: new Date().getTime()
+    }
+    db.query('INSERT INTO likes SET ?', insert)
+        .then(liked => res.json(Object.assign({}, insert, { like_id: liked.insertId })) )
+        .catch(err => res.json(err) )
+})
+
+app.post('/unlike', (req, res) => {
+    db.query('DELETE FROM likes WHERE note_id=? AND like_by=?', [req.body.note, req.session.id])
+        .then(unlike => res.json(unlike) )
+        .catch(err => res.json(err) )
+})
+
 module.exports = app

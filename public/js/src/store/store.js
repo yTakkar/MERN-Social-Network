@@ -7,11 +7,13 @@ import promise from 'redux-promise-middleware'
 import notes from '../rest_reducers/note_reducer'
 import user from '../rest_reducers/user_reducer'
 import follow from '../rest_reducers/follow_reducer'
+import note_int from '../rest_reducers/note_int_reducer'
 
 const reducers = combineReducers({
     notes,
     user,
-    follow
+    follow,
+    note_int
 })
 
 const middleware = applyMiddleware(promise(), thunk, logger)
