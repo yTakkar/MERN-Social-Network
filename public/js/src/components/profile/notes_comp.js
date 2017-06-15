@@ -1,5 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
+
 import Note from '../others/note_comp'
 import Nothing from '../others/nothing_comp'
 import * as fn from '../../functions/functions'

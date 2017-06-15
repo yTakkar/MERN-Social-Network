@@ -11,7 +11,8 @@ import Create_note from '../others/create_note_comp'
 @connect(store => {
     return {
         notes: store.notes,
-        user: store.user
+        user: store.user,
+        note_int: store.note_int
     }
 })
 
