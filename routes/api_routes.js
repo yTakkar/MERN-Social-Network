@@ -180,7 +180,7 @@ app.post('/like', (req, res) => {
         like_by: req.session.id,
         like_by_username: req.session.username,
         note_id: parseInt(req.body.note),
-        note_time: new Date().getTime()
+        like_time: new Date().getTime()
     }
     db.query('INSERT INTO likes SET ?', insert)
         .then(liked => res.json(Object.assign({}, insert, { like_id: liked.insertId })) )

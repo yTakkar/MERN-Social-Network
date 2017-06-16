@@ -328,6 +328,17 @@ input[type="file"] {
   z-index: 20;
   display: none;
 }
+.hidden_overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: transparent;
+  z-index: 2;
+}
 select {
   font-size: 14px;
   font-family: 'Open Sans', 'Roboto', Tahoma, arial, sans-serif;

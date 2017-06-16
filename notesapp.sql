@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2017 at 02:05 PM
+-- Generation Time: Jun 16, 2017 at 02:14 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -45,10 +45,39 @@ INSERT INTO `follow_system` (`follow_id`, `follow_by`, `follow_by_username`, `fo
 (85, 8, 'coldplay', 7, 'ghalib', '1497279746775'),
 (86, 8, 'coldplay', 6, 'faiyaz', '1497279747882'),
 (87, 8, 'coldplay', 5, 'takkar', '1497279762184'),
-(92, 7, 'ghalib', 8, 'coldplay', '1497280673611'),
-(93, 7, 'ghalib', 6, 'faiyaz', '1497280724162'),
-(94, 7, 'ghalib', 5, 'takkar', '1497280759242'),
-(95, 5, 'takkar', 8, 'coldplay', '1497355236887');
+(95, 5, 'takkar', 8, 'coldplay', '1497355236887'),
+(96, 7, 'ghalib', 5, 'takkar', '1497358070303'),
+(98, 6, 'faiyaz', 8, 'coldplay', '1497369276324'),
+(100, 6, 'faiyaz', 5, 'takkar', '1497369290821'),
+(101, 7, 'ghalib', 8, 'coldplay', '1497460672631'),
+(103, 7, 'ghalib', 6, 'faiyaz', '1497461741715'),
+(104, 6, 'faiyaz', 7, 'ghalib', '1497614091324');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `likes`
+--
+
+CREATE TABLE `likes` (
+  `like_id` int(11) NOT NULL,
+  `like_by` int(11) NOT NULL,
+  `like_by_username` varchar(32) NOT NULL,
+  `note_id` int(11) NOT NULL,
+  `like_time` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `likes`
+--
+
+INSERT INTO `likes` (`like_id`, `like_by`, `like_by_username`, `note_id`, `like_time`) VALUES
+(20, 5, 'takkar', 76, '1497609159054'),
+(30, 7, 'ghalib', 74, '1497613899085'),
+(31, 7, 'ghalib', 61, '1497613909800'),
+(32, 6, 'faiyaz', 76, '1497613932622'),
+(33, 6, 'faiyaz', 70, '1497614006858'),
+(35, 6, 'faiyaz', 74, '1497614088181');
 
 -- --------------------------------------------------------
 
@@ -71,9 +100,11 @@ CREATE TABLE `notes` (
 
 INSERT INTO `notes` (`note_id`, `user`, `username`, `title`, `content`, `note_time`) VALUES
 (61, 6, 'faiyaz', 'Untitled note', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', '1497022376821'),
-(70, 6, 'faiyaz', 'miracle', 'for you!!', '1497043496669'),
+(70, 6, 'faiyaz', 'Miracle', 'For you!! and me', '1497043496669'),
 (73, 8, 'coldplay', 'coldplay', '.....', '1497279792645'),
-(74, 8, 'coldplay', 'k', 'k', '1497279939388');
+(74, 8, 'coldplay', 'k', 'k', '1497279939388'),
+(75, 7, 'ghalib', 'Note...', '???????', '1497357617034'),
+(76, 7, 'ghalib', 'Jkjkj', 'Kkj', '1497541687310');
 
 -- --------------------------------------------------------
 
@@ -151,7 +182,18 @@ INSERT INTO `profile_views` (`view_id`, `view_by`, `view_by_username`, `view_to`
 (108, 8, 'coldplay', 7, '1497279769035'),
 (109, 7, 'ghalib', 5, '1497280210835'),
 (110, 7, 'ghalib', 6, '1497280214797'),
-(111, 7, 'ghalib', 6, '1497280717660');
+(111, 7, 'ghalib', 6, '1497280717660'),
+(112, 7, 'ghalib', 5, '1497461511090'),
+(113, 7, 'ghalib', 5, '1497461604434'),
+(114, 7, 'ghalib', 5, '1497461636743'),
+(115, 7, 'ghalib', 5, '1497461673196'),
+(116, 7, 'ghalib', 5, '1497461721072'),
+(117, 7, 'ghalib', 5, '1497461813002'),
+(118, 7, 'ghalib', 8, '1497461821770'),
+(119, 7, 'ghalib', 8, '1497461965900'),
+(120, 7, 'ghalib', 8, '1497461986236'),
+(121, 7, 'ghalib', 8, '1497462113440'),
+(122, 7, 'ghalib', 8, '1497462143823');
 
 -- --------------------------------------------------------
 
@@ -189,6 +231,12 @@ ALTER TABLE `follow_system`
   ADD PRIMARY KEY (`follow_id`);
 
 --
+-- Indexes for table `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`like_id`);
+
+--
 -- Indexes for table `notes`
 --
 ALTER TABLE `notes`
@@ -214,17 +262,22 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `follow_system`
 --
 ALTER TABLE `follow_system`
-  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+--
+-- AUTO_INCREMENT for table `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT for table `profile_views`
 --
 ALTER TABLE `profile_views`
-  MODIFY `view_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `view_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 --
 -- AUTO_INCREMENT for table `users`
 --

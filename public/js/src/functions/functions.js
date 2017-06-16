@@ -1,5 +1,8 @@
 import $ from 'jquery'
+
 import * as follow_action from '../rest_actions/follow_actions'
+import * as notes_actions from '../rest_actions/note_actions'
+import * as note_int_actions from '../rest_actions/note_int_actions'
 
 // FUNCTION FOR SHORTENING
 const nameShortener = (elem, length) => {
@@ -235,6 +238,69 @@ const unfollow = options => {
 
 }
 
+const delete_note = options => {
+  let { note_id, dispatch } = options
+  $.ajax({
+    url: "/api/delete_note",
+    method: "POST",
+    data: { note: note_id },
+    dataType: "JSON",
+    success: data => {
+        notify({ value: data.mssg })
+        dispatch(notes_actions.delete_note(note_id))
+    }
+  })
+}
+
+const edit_note = options => {
+  let { title, content, note_id, dispatch, done } = options
+  $.ajax({
+    url: "/api/edit_note",
+    method: "POST",
+    data: {
+        title,
+        content, 
+        note_id
+    },
+    dataType: "JSON",
+    success: data => {
+        notify({ value: data.mssg })
+        dispatch(notes_actions.edit_note({title, content, note_id}))
+        done()
+    }
+  })
+}
+
+const like = options => {
+  let { note, dispatch, done } = options
+  $.ajax({
+    url: '/api/like',
+    data: { note },
+    method: "POST",
+    dataType: "JSON",
+    success: data => {
+        notify({ value: "Liked" })
+        dispatch(note_int_actions.liked(data))
+        done()
+    }
+  })
+}
+
+const unlike = options => {
+  let { note, dispatch, done } = options
+  $.ajax({
+    url: '/api/unlike',
+    data: { note },
+    method: "POST",
+    dataType: "JSON",
+    success: data => {
+        notify({ value: "Unliked" })
+        dispatch(note_int_actions.unliked(note))
+        done()
+    }
+  })
+}
+
 module.exports = {
     nameShortener,
     copyTextToClipboard,
@@ -244,5 +310,9 @@ module.exports = {
     time_ago,
     MeOrNot,
     follow,
-    unfollow
+    unfollow,
+    delete_note,
+    edit_note,
+    like,
+    unlike
 }

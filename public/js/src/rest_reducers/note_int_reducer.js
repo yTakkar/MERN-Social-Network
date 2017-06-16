@@ -30,7 +30,7 @@ const liked = (likes, like) => {
 
 const unliked = (likes, note) => {
     let user = $('#data').data('session')
-    return likes.filter(l => l.like_by !== user && l.note_id !== note )
+    return likes.filter(l => l.like_by != user && l.note_id == note )
 }
 
 export default note_int
