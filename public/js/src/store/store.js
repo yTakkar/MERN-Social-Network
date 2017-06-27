@@ -8,12 +8,14 @@ import notes from '../rest_reducers/note_reducer'
 import user from '../rest_reducers/user_reducer'
 import follow from '../rest_reducers/follow_reducer'
 import note_int from '../rest_reducers/note_int_reducer'
+import explore from '../components/explore/explore_reducer'
 
 const reducers = combineReducers({
     notes,
     user,
     follow,
-    note_int
+    note_int,
+    explore
 })
 
 const middleware = applyMiddleware(promise(), thunk, logger)

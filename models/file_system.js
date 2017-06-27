@@ -1,7 +1,7 @@
 const fs = require('fs')
 const util = require('util')
 
-const dlt_all_of_folder = (folder) => {
+const dlt_all_of_folder = folder => {
     return new Promise((resolve, reject) => {
 
         let read = util.promisify(fs.readdir)

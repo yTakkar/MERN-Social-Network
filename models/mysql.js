@@ -9,7 +9,7 @@ const db = mysql.createConnection({
     charset: "utf8mb4"
 })
 
-db.connect((err) => {
+db.connect(err => {
     if(err){
         chalk.e(err)
     }

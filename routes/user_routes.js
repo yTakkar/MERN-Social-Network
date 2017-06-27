@@ -38,9 +38,4 @@ app.get('/logout', mw.LoggedIn, (req, res) => {
     }
 })
 
-app.get('/edit', mw.LoggedIn, (req, res) => {
-    let options = {  title: "Edit profile" }
-    res.render('edit', {options})
-})
-
 module.exports = app

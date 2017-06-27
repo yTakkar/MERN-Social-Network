@@ -8,15 +8,11 @@ let transporter = nodemailer.createTransport({
     }
 })
 
-let mail = (options) => {
+let mail = options => {
     return new Promise((resolve, reject) => {
-        let o = Object.assign({}, {from: "<teaminstagramme@gmail.com>"}, options )
+        let o = Object.assign({}, {from: `<${process.env.MAIL}>`}, options )
         transporter.sendMail(o, (err, res) => {
-            if(err){
-                reject(err)
-            } else {
-                resolve('Mail sent!!')
-            }
+            err ? reject(err) : resolve('Mail sent!!')
         })
     })
 }

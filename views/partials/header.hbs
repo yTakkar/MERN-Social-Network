@@ -24,15 +24,24 @@
     {{> needs}}
 
     <div class="{{#if session.id }}header_loggedin{{else}}index_header{{/if}}">
+
+        {{# if session.id}}
+            <div class="left">
+                <a href="/">Home</a>
+                <a href="/explore" >Explore</a>
+            </div>
+        {{/if}}
+
         <div class="right">
-            <a href="/" class="">Home</a>
             {{# if session.id}}
                 <a href="/profile/{{session.id}}" class='vp' >{{session.username}}</a>
                 <a href="/edit">Edit profile</a>
                 <a href="/logout" >Logout</a>
             {{ else }}
+            <a href="/">Home</a>
                 <a href="/login">Login</a>
                 <a href="/signup">Signup</a>
             {{/if}}
         </div>
+
     </div>

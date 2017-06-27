@@ -32,12 +32,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(validator())
 app.use(session({
     cookieName: "session",
-    secret: "iamaprogrammer",
+    secret: process.env.SESSION_SECRET_LETTER,
     duration: 30 * 60 * 1000,
     activeDuration: 5 * 60 * 1000
 }))
 
-// Middleware for some local variables to be used in the template
+// Middleware for some local variables to be used in templates
 app.use(mw.variables)
 
 // Routes middlewares

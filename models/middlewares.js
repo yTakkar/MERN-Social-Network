@@ -3,27 +3,15 @@ const file = require('./file_system')
 const P = require('bluebird')
 
 const LoggedIn = (req, res, next) => {
-    if(req.session.id){
-        next()
-    } else {
-        res.redirect('/login')
-    }
+    req.session.id ? next() : res.redirect('/login')
 }
 
 const NotLoggedIn = (req, res, next) => {
-    if(!req.session.id){
-        next()
-    } else {
-        res.redirect('/profile')
-    }
+    !req.session.id ? next() : res.redirect('/profile')
 }
 
 const MainRedirect = (req, res, next) => {
-    if(req.session.id){
-        next()
-    } else {
-        res.redirect('/welcome')
-    }
+    req.session.id ? next() : res.redirect('/welcome')
 }
 
 const variables = (req, res, next) => {

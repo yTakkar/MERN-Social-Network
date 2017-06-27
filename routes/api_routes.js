@@ -193,4 +193,10 @@ app.post('/unlike', (req, res) => {
         .catch(err => res.json(err) )
 })
 
+app.post('/get_explores', (req, res) => {
+    db.query('SELECT id, username, email FROM users WHERE id <> ? ORDER BY RAND() LIMIT 10', [req.session.id])
+        .then(explores => res.json(explores) )
+        .catch(err => res.json(err) )
+})
+
 module.exports = app

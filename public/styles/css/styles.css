@@ -718,14 +718,6 @@ select:focus {
   z-index: 2;
   top: 0px;
 }
-.header_loggedin .right {
-  position: absolute;
-  float: left;
-  left: 30px;
-  overflow: inherit;
-  display: inline-block;
-  top: 8px;
-}
 .header_loggedin a {
   font-size: 14px;
   color: #1b2733;
@@ -740,8 +732,17 @@ select:focus {
 .header_loggedin a:focus {
   background: #f7f9fa;
 }
-.header_loggedin .vp {
-  margin-left: 960px;
+.header_loggedin .left {
+  display: inline-block;
+  position: relative;
+  top: 8px;
+  left: 25px;
+  margin-right: 915px;
+}
+.header_loggedin .right {
+  display: inline-block;
+  position: relative;
+  top: 8px;
 }
 .log_sign {
   position: absolute;
@@ -1110,4 +1111,52 @@ select:focus {
   right: 10px;
   padding: 4px 12px;
   top: 10px;
+}
+.explore .explores {
+  display: inline-block;
+  width: 615px;
+  margin-left: 365px;
+}
+.explore .explores div.explores_list {
+  position: relative;
+  background: #fff;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #f7f5f5;
+  margin-bottom: 10px;
+}
+.explore .explores div.explores_list:hover {
+  border-color: #eee;
+}
+.explore .explores div.explores_list .exl_main img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+.explore .explores div.explores_list .exl_main .exl_content {
+  display: inline-block;
+  position: relative;
+  top: -8px;
+  margin-left: 7px;
+}
+.explore .explores div.explores_list .exl_main .exl_content a.exl_username {
+  color: #1b2733;
+  font-size: 14px;
+  font-weight: 600;
+}
+.explore .explores div.explores_list .exl_main .exl_content div.exl_desc {
+  color: #66757f;
+}
+.explore .explores div.explores_list .exl_main .exl_content div.exl_desc span.exl_desc_sep {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.explore .explores div.explores_list .exl_ff {
+  position: absolute;
+  right: 15px;
+  top: 25px;
+}
+.explore .explores div.explores_list .exl_ff a {
+  padding: 5px 20px;
+  font-size: 14px;
 }

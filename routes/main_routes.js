@@ -13,6 +13,16 @@ app.get('/', mw.MainRedirect, (req, res) => {
     res.render('index', {options})
 })
 
+app.get('/edit', mw.LoggedIn, (req, res) => {
+    let options = {  title: "Edit profile" }
+    res.render('edit', {options})
+})
+
+app.get('/explore', mw.LoggedIn, (req, res) => {
+    let options = { title: "Explore Users" }
+    res.render('explore', { options })
+})
+
 app.get('/error', (req, res) => {
     let options = {  title: "Oops!" }
     res.render('error', {options})

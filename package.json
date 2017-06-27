@@ -1,7 +1,7 @@
 {
   "name": "notes_app",
   "version": "1.0.0",
-  "description": "...",
+  "description": "A very simple MERN Social-Network!",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
@@ -9,7 +9,13 @@
     "prod": "webpack -p --watch",
     "less": "less-watch-compiler"
   },
-  "author": "Takkar",
+  "author": {
+    "name": "Takkar",
+    "email": "shtakkar@gmail.com"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "license": "ISC",
   "dependencies": {
     "aphrodite": "^1.2.1",
