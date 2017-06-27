@@ -7,6 +7,7 @@ import Feeds from './Feeds_comp'
 import Nothing from '../others/nothing_comp'
 import Overlay from '../others/overlay_comp'
 import Create_note from '../others/create_note_comp'
+import End from '../others/end_comp'
 
 @connect(store => {
     return {
@@ -45,6 +46,7 @@ export default class Home extends React.Component{
                     <a href='#' class='pri_btn' onClick={e => this.toggle_(e, "note") } >Create note</a>
                 </div>
                 { notes.length == 0 ? <Nothing mssg={'Looks like you"re new, Follow some to fill up your feed'} /> : <Feeds {...this.props} /> }
+                { notes.length != 0 ? <End/> : null }
 
                 { creating_note ? <Overlay/> : null }
                 { creating_note ? <Create_note close={this.toggle_} /> : null }
