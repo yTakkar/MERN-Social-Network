@@ -59,7 +59,7 @@ export default class Explores_list extends React.Component{
                 <div className="exl_ff">
                     {
                         is_following ?
-                            <a href="#" className="pri_btn unfollow exl_unfollow" onClick={this.unfollow} >Unfollow</a> 
+                            <a href="#" className="sec_btn sec_btn_disabled exl_unfollow" onClick={this.unfollow} >Followed</a> 
                         :   
                             <a href="#" className="pri_btn follow exl_follow" onClick={this.follow} >Follow</a>
                     }

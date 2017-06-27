@@ -859,6 +859,7 @@ select:focus {
   margin-top: 20px;
   display: inline-block;
   margin-left: 365px;
+  margin-bottom: 50px;
   width: 614px;
 }
 .note {
