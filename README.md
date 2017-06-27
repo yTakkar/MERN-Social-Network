@@ -7,10 +7,15 @@ A very simple MERN Social-Network.
 3. [Own the project](#own-the-project)
 
 # Screenshots
-![alt text]()
-![alt text]()
-![alt text]()
-![alt text]()
+![alt text](https://github.com/yTakkar/MERN-Social-Network/blob/master/screenshots/Snap%202017-06-27%20at%2022.01.55.png)
+![alt text](https://github.com/yTakkar/MERN-Social-Network/blob/master/screenshots/Snap%202017-06-27%20at%2022.01.50.png)
+![alt text](https://github.com/yTakkar/MERN-Social-Network/blob/master/screenshots/Snap%202017-06-27%20at%2021.59.33.png)
+![alt text](https://github.com/yTakkar/MERN-Social-Network/blob/master/screenshots/Snap%202017-06-27%20at%2021.59.26.png)
+![alt text](https://github.com/yTakkar/MERN-Social-Network/blob/master/screenshots/Snap%202017-06-27%20at%2021.58.14.png)
+![alt text](https://github.com/yTakkar/MERN-Social-Network/blob/master/screenshots/Snap%202017-06-27%20at%2021.58.38.png)
+![alt text](https://github.com/yTakkar/MERN-Social-Network/blob/master/screenshots/Snap%202017-06-27%20at%2021.59.05.png)
+![alt text](https://github.com/yTakkar/MERN-Social-Network/blob/master/screenshots/Snap%202017-06-27%20at%2022.05.02.png)
+![alt text](https://github.com/yTakkar/MERN-Social-Network/blob/master/screenshots/Snap%202017-06-27%20at%2021.59.17.png)
 
 # Requirements
 1. `Node v8.0` or latest (Currently, v8 is the latest).
