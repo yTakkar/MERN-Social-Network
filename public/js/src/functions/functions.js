@@ -88,7 +88,9 @@ const commonLogin = (options) => {
     let { data, btn, url, redirect, defBtnValue } = options
     let overlay2 = $('.overlay-2')
 
-    btn.attr('value', 'Please wait..')
+    btn
+      .attr('value', 'Please wait..')
+      .addClass('a_disabled')
     overlay2.show()
 
     $.ajax({
@@ -98,13 +100,16 @@ const commonLogin = (options) => {
         dataType: "JSON",
         success: (data) => {
             let { mssg, success } = data
-            notify({ value: mssg, done: redirect })
             if(success){
-                btn.attr('value', 'Redirecting..')
-                overlay2.show()
+              notify({ value: mssg, done: redirect })
+              btn.attr('value', 'Redirecting..')
+              overlay2.show()
             } else {
-                btn.attr('value', defBtnValue)
-                overlay2.hide()
+              notify({ value: mssg })
+              btn
+                .attr('value', defBtnValue)
+                .removeClass('a_disabled')
+              overlay2.hide()
             }
             btn.blur()
         }

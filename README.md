@@ -30,7 +30,7 @@ A very simple MERN Social-Network.
     6. `Yarn`
 
 # Own the project
-1. Import `notesapp.sql` file.
+1. Open PHPMyAdmin, create a DB & import `notesapp.sql` file.
 2. Create a `.env` file and store all the custom environment variables in it.
     1. `MYSQL_HOST="host"`
     2. `MYSQL_USER="user"`
