@@ -1,6 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 import { connect } from 'react-redux'
+import * as fn from '../../functions/functions'
 import * as notes_actions from '../../rest_actions/note_actions'
 
 import Feeds from './Feeds_comp'

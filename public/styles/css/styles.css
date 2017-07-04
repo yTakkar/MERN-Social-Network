@@ -420,6 +420,18 @@ select:focus {
   content: "\f0c8";
   color: #ccc;
 }
+#hoverdiv {
+  position: absolute;
+  background: #333;
+  padding: 4px 14px;
+  color: white;
+  font-size: 13px;
+  border-radius: 3px;
+  top: 0px;
+  left: 0px;
+  display: none;
+  z-index: 4;
+}
 .notify {
   position: fixed;
   background: #333;

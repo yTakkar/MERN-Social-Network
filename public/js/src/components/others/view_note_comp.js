@@ -78,6 +78,8 @@ export default class View_note extends React.Component{
             session = $('#data').data('session'),
             getid = $('#profile_data').data('getid')
 
+        fn.description({ selector: $('.like_unlike'), text: liked ? "Unlike" : "Like" })
+
         return(
             <div class='view_note modal'>
                 <div className="v_n_header modal_header">
@@ -108,15 +110,19 @@ export default class View_note extends React.Component{
                     <div className="v_n_int">
                         {
                             liked ? 
-                            <span 
-                                className={`v_n_unlike like_unlike ${editing ? 'like_unlike_disabled' : '' }`} 
-                                onClick={this.unlike} 
-                            ><i class="material-icons">favorite</i></span>
+                                <span 
+                                    className={`v_n_unlike like_unlike ${editing ? 'like_unlike_disabled' : '' }`} 
+                                    onClick={this.unlike} 
+                                >
+                                    <i class="material-icons">favorite</i>
+                                </span>
                             : 
-                            <span 
-                                className={`v_n_like like_unlike ${editing ? 'like_unlike_disabled' : ''}`} 
-                                onClick={this.like} 
-                            ><i class="material-icons">favorite_border</i></span>
+                                <span 
+                                    className={`v_n_like like_unlike ${editing ? 'like_unlike_disabled' : ''}`} 
+                                    onClick={this.like}
+                                >
+                                    <i class="material-icons">favorite_border</i>
+                                </span>
                         }
                     </div>
                     <a 
