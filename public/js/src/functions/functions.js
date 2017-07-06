@@ -92,6 +92,7 @@ const description = options => {
   }
   let settings = { ...defaults, ...options }
   let { selector, extraTop, extraLeft, text } = settings
+  let hoverdiv = $('#hoverdiv')
 
   selector.on('mouseover', e => {
 
@@ -100,33 +101,33 @@ const description = options => {
       top      = selector.offset().top,
       left     = selector.offset().left,
       width    = selector.width()/2,
-      dwidth   = $('#hoverdiv').width()/2,
+      dwidth   = hoverdiv.width()/2,
       padding  = parseInt(selector.css('padding-left')),
-      dpadding = parseInt($('#hoverdiv').css('padding-left')),
+      dpadding = parseInt(hoverdiv.css('padding-left')),
       height   = parseInt(selector.outerHeight()),
-      dheight  = parseInt($('#hoverdiv').outerHeight())
+      dheight  = parseInt(hoverdiv.outerHeight())
     
-    $('#hoverdiv').text(value)
+    hoverdiv.text(value)
 
-    $('#hoverdiv').css({
+    hoverdiv.css({
       left: left+width-dwidth+padding-dpadding+extraLeft,
       display: "block"
     })
 
     if(top < (dheight)+16){
-      $('#hoverdiv')
+      hoverdiv
         .removeClass('after')
         .addClass('before')
         .css('top', top+height+10+extraTop)
     } else {
-      $('#hoverdiv')
+      hoverdiv
         .removeClass('before')
         .addClass('after')
         .css('top', top-height-10-extraTop)
     }
 
   }).on('mouseleave', e => {
-    $('#hoverdiv').css('display', 'none')
+    hoverdiv.css('display', 'none')
   })
 
 }
