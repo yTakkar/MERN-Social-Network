@@ -122,7 +122,7 @@ const description = options => {
       $('#hoverdiv')
         .removeClass('before')
         .addClass('after')
-      .css('top', top-height-10-extraTop)
+        .css('top', top-height-10-extraTop)
     }
 
   }).on('mouseleave', e => {
