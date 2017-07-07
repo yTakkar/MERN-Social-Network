@@ -9,6 +9,7 @@
 @header: #f9f9f9;
 @header_border: #f7f5f5;
 @second_border: #f7f9fa;
+@third-border: #f6f7f9;
 
 .center(){
   position: absolute;
@@ -17,7 +18,13 @@
   transform: translate(-50%, -50%);
 }
 
-.model_shadow(){
+.modal-shadow(){
+  box-shadow: 0 0 18px rgba(27,31,35,0.4);
+  -webkit-box-shadow: 0 0 18px rgba(27,31,35,0.4);
+  -moz-box-shadow: 0 0 18px rgba(27,31,35,0.4);
+}
+
+.modal-shadow{
   box-shadow: 0 0 18px rgba(27,31,35,0.4);
   -webkit-box-shadow: 0 0 18px rgba(27,31,35,0.4);
   -moz-box-shadow: 0 0 18px rgba(27,31,35,0.4);
@@ -677,7 +684,7 @@ select:focus{
 .modal{
   .center();
   position: fixed !important;
-  .model_shadow();
+  .modal-shadow();
   width: 300px;
   border-radius: 3px;
   z-index: 2;

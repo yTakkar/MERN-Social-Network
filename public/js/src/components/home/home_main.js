@@ -11,4 +11,4 @@ if(/^http:\/\/localhost:\d+\/$/g.test(location.href)){
         </Provider>,
         document.getElementById('home_root')
     )
-}
+} 

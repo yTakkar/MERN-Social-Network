@@ -8,13 +8,15 @@ import * as fn from '../../functions/functions'
 
 import Hidden_overlay from './hidden_overlay_comp'
 import Likes from './likes_comp'
+import Prompt from './prompt-comp'
 
 export default class View_note extends React.Component{
 
     state = { 
         editing: false,
         liked: false,
-        view_likes: false
+        view_likes: false,
+        deleting: false
     }
 
     componentWillMount = () => {
@@ -34,6 +36,8 @@ export default class View_note extends React.Component{
         } else if(what == "editing"){
             this.setState({ editing: !this.state.editing })
             $('.v_n_edit').blur()
+        } else if(what == "deleting"){
+            this.setState({ deleting: !this.state.deleting })
         }
     }
 
@@ -74,7 +78,7 @@ export default class View_note extends React.Component{
 
     render(){
         let { title, content, note_id, user, note_time, close, username, dispatch, user_details: { id }, note_int: { likes } } = this.props,
-            { editing, liked, view_likes } = this.state,
+            { editing, liked, view_likes, deleting } = this.state,
             session = $('#data').data('session'),
             getid = $('#profile_data').data('getid')
 
@@ -129,7 +133,8 @@ export default class View_note extends React.Component{
                         href='#' 
                         className={`v_n_likes sec_btn ${editing ? 'sec_btn_disabled' : ''}`} 
                         onClick={e => this.toggle_(e, "likes") }     
-                    >{`${likes.length} Likes`}</a>
+                    >{`${likes.length} Likes`}
+                    </a>
                     {
                         fn.MeOrNot(getid) ?
                             editing ? <a 
@@ -145,15 +150,26 @@ export default class View_note extends React.Component{
                             <a 
                                 href="#" 
                                 className={`v_n_delete sec_btn ${editing ? 'sec_btn_disabled' : '' } `} 
-                                onClick={this.delete_note} 
+                                onClick={e => this.toggle_(e, "deleting")} 
                             >Delete note</a> 
                         : null
                     }
                     <a href='#' className={`v_n_cancel pri_btn ${editing ? 'a_disabled' : '' } `} onClick={close}>Done</a>
                 </div>
 
-                { view_likes ? <Hidden_overlay/> : null }
+                { (view_likes || deleting) ? <Hidden_overlay/> : null }
                 { view_likes ? <Likes dispatch={dispatch} close={this.toggle_} likes={likes} /> : null }
+                { 
+                    deleting ? 
+                        <Prompt 
+                            title={"Delete note"} 
+                            content={"This post will be deleted. There's no undo so you won't be able to find it."}
+                            actionText= "Delete"
+                            action={this.delete_note}
+                            close={this.toggle_}
+                        /> 
+                    : null
+                 }
 
             </div>
         )

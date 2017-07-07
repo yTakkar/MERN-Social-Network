@@ -37,9 +37,13 @@ app.post('/create_note', (req, res) => {
 
 // FOR DELETING A NOTE
 app.post('/delete_note', (req, res) => {
-    db.query('DELETE FROM notes WHERE note_id = ?', [req.body.note])
-        .then(del => (del.affectedRows == 1) ? res.json({ mssg: 'Note deleted!' }) : null )
-        .catch(err => res.json(err) )
+    let { note } = req.body
+    P.coroutine(function *(){
+        let 
+            likes = db.query('DELETE FROM likes WHERE note_id=?', [note]),
+            dlt_note = db.query('DELETE FROM notes WHERE note_id = ?', [note]);
+        res.json({ mssg: "Note deleted!" })
+    })()
 })
 
 // FOR EDITING A NOTE
