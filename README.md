@@ -34,12 +34,16 @@ A very simple MERN Social-Network.
 
 # Own the project
 1. Open PHPMyAdmin, create a DB & import `notesapp.sql` file.
-2. Create a `.env` file and store all the custom environment variables in it.
-    1. `MYSQL_HOST="host"`
-    2. `MYSQL_USER="user"`
-    3. `MYSQL_PASSWORD="password"`
-    4. `MYSQL_DATABASE="db"`
-    5. `MAIL="yourgmail@gmail.com"`
-    6. `MAIL_PASSWORD="gmail-password"`
-    7. `SESSION_SECRET_LETTER="anything-secret"`
+2. Create a `.env` file and insert the following code. Replace values with yours!!
+
+    ```javascript
+    MYSQL_HOST="host"
+    MYSQL_USER="user"
+    MYSQL_PASSWORD="password"
+    MYSQL_DATABASE="db"
+    MAIL="yourgmail@gmail.com"
+    MAIL_PASSWORD="gmail-password"
+    SESSION_SECRET_LETTER="anything-secret"
+    ```
+
 3. Enjoy!!
