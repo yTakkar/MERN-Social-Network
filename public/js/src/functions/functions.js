@@ -37,10 +37,10 @@ const copyTextToClipboard = (text) => {
     var successful = document.execCommand('copy');
     var msg = successful ? 'Link copied!' : 'Unable to copy';
     console.log(msg);
-    $('.notify').notify({ value: msg })
+    notify({ value: mssg })
   } catch (err) {
     console.log('Unable to copy');
-    $('.notify').notify({ value: 'Unable to copy' });
+    notify({ value: "Unable to copy!!" })
   }
 
   document.body.removeChild(textArea);
