@@ -1,5 +1,6 @@
 # MERN-Social-Network
-A very simple MERN Social-Network.
+A simple MERN Social-Network to check the power, speed & awesomeness of MERN stack. Believe me it's really fast, reactive & fun.
+I'm lovin' it!!
 
 # Quick liks
 1. [Screenshots](#screenshots)
@@ -18,7 +19,9 @@ A very simple MERN Social-Network.
 ![alt text](https://raw.githubusercontent.com/yTakkar/MERN-Social-Network/master/screenshots/Snap%202017-06-27%20at%2021.59.05.png)
 ![alt text](https://raw.githubusercontent.com/yTakkar/MERN-Social-Network/master/screenshots/Snap%202017-07-08%20at%2000.53.34.png)
 
-[More screenshots](#https://github.com/yTakkar/MERN-Social-Network/tree/master/screenshots)
+[More screenshots](https://github.com/yTakkar/MERN-Social-Network/tree/master/screenshots).
+
+UI is taken from [Instagam-clone](https://github.com/yTakkar/Instagram-Clone) I created!!
 
 # Requirements
 1. `Node v8.0` or latest (Currently, v8 is the latest).
