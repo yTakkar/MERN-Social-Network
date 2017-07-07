@@ -1,7 +1,7 @@
 {
   "name": "notes_app",
   "version": "1.0.0",
-  "description": "A very simple MERN Social-Network!",
+  "description": "A simple, fast, reactive & easy-to-use MERN Social-Network!",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
@@ -9,13 +9,24 @@
     "prod": "webpack -p --watch",
     "less": "less-watch-compiler"
   },
-  "author": {
-    "name": "Takkar",
-    "email": "shtakkar@gmail.com"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yTakkar/MERN-Social-Network.git"
   },
+  "author": "takkar <shtakkar@gmail.com>",
   "engines": {
     "node": ">= 8.0.0"
   },
+  "keywords": [
+    "takkar",
+    "MERN",
+    "social-network",
+    "redux"
+  ],
+  "bugs": {
+    "url": "https://github.com/yTakkar/MERN-Social-Network/issues"
+  },
+  "homepage": "https://github.com/yTakkar/MERN-Social-Network#readme",
   "license": "ISC",
   "dependencies": {
     "aphrodite": "^1.2.1",
