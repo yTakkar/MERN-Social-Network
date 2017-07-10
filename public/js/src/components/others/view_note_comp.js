@@ -1,6 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 import axios from 'axios'
+import { FadeIn } from 'animate-components'
 
 import * as notes_actions from '../../rest_actions/note_actions'
 import * as note_int_actions from '../../rest_actions/note_int_actions'
@@ -158,16 +159,23 @@ export default class View_note extends React.Component{
                 </div>
 
                 { (view_likes || deleting) ? <Hidden_overlay/> : null }
-                { view_likes ? <Likes dispatch={dispatch} close={this.toggle_} likes={likes} /> : null }
+                { 
+                    view_likes ? 
+                        <FadeIn duration="50ms" >
+                            <Likes dispatch={dispatch} close={this.toggle_} likes={likes} /> 
+                        </FadeIn>
+                    : null }
                 { 
                     deleting ? 
-                        <Prompt 
-                            title={"Delete note"} 
-                            content={"This post will be deleted. There's no undo so you won't be able to find it."}
-                            actionText= "Delete"
-                            action={this.delete_note}
-                            close={this.toggle_}
-                        /> 
+                        <FadeIn duration="50ms" >
+                            <Prompt 
+                                title={"Delete note"} 
+                                content={"This post will be deleted. There's no undo so you won't be able to find it."}
+                                actionText= "Delete"
+                                action={this.delete_note}
+                                close={this.toggle_}
+                            /> 
+                        </FadeIn>
                     : null
                  }
 

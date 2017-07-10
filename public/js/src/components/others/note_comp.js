@@ -1,5 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
+import { FadeIn } from 'animate-components'
 import * as fn from '../../functions/functions'
 
 import Overlay from './overlay_comp'
@@ -37,7 +38,9 @@ export default class Note extends React.Component{
                 { this.state.viewing ? <Overlay/> : null }
                 { 
                     this.state.viewing ? 
-                        <View_note key={this.props.note_id} {...this.props} close={this.toggle_viewing} />
+                        <FadeIn duration="50ms" >
+                            <View_note key={this.props.note_id} {...this.props} close={this.toggle_viewing} />
+                        </FadeIn>
                     : null 
                 }
             </div>

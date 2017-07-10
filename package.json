@@ -7,7 +7,8 @@
     "start": "nodemon app.js",
     "dev": "webpack -d --watch",
     "prod": "webpack -p --watch",
-    "less": "less-watch-compiler"
+    "less": "less-watch-compiler",
+    "public": "concurrently \"npm run dev\" \"npm run less\""
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,9 @@
     "takkar",
     "MERN",
     "social-network",
-    "redux"
+    "redux",
+    "Notes",
+    "Notes App"
   ],
   "bugs": {
     "url": "https://github.com/yTakkar/MERN-Social-Network/issues"
@@ -30,7 +33,6 @@
   "license": "ISC",
   "dependencies": {
     "animate-components": "^1.4.2",
-    "animate-keyframes": "^0.1.5",
     "aphrodite": "^1.2.1",
     "axios": "^0.16.1",
     "bcrypt-nodejs": "^0.0.3",
@@ -38,6 +40,7 @@
     "body-parser": "^1.17.2",
     "chalk": "^1.1.3",
     "client-sessions": "^0.8.0",
+    "concurrently": "^3.5.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
@@ -53,7 +56,6 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",
-    "react-transition-group": "^1.1.3",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-promise-middleware": "^4.2.0",

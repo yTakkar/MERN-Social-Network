@@ -9,7 +9,7 @@ export default class Prompt extends React.Component{
             <div class="prompt">
                 <div class="prompt-top">
                     <span class="prompt-title">{title}</span>
-                    <span><i class="material-icons">clear</i></span>
+                    <span onClick={() => close(null, "deleting")} ><i class="material-icons">clear</i></span>
                 </div>
                 <div class="prompt-middle">
                     <span class="prompt-content">{content}</span>
