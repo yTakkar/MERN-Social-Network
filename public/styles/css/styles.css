@@ -442,7 +442,7 @@ select:focus {
   display: none;
   z-index: 4;
 }
-.notify {
+.handy-notify {
   position: fixed;
   background: #333;
   left: 2%;
@@ -457,7 +457,7 @@ select:focus {
   z-index: 3;
   top: 105%;
 }
-.after::after {
+.handy-tooltip-after::after {
   content: "";
   position: absolute;
   width: 8px;
@@ -470,7 +470,7 @@ select:focus {
   left: 45%;
   z-index: -1;
 }
-.before::before {
+.handy-tooltip-before::before {
   content: "";
   position: absolute;
   width: 8px;
@@ -760,7 +760,7 @@ select:focus {
   position: relative;
   top: 8px;
   left: 25px;
-  margin-right: 915px;
+  margin-right: 67%;
 }
 .header_loggedin .right {
   display: inline-block;

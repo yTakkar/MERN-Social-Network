@@ -1,5 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
+import Notify from 'handy-notification'
 import * as fn from '../../functions/functions'
 import * as notes_actions from '../../rest_actions/note_actions'
 
@@ -17,7 +18,7 @@ export default class Create_note extends React.Component{
             },  
             dataType: "JSON",
             success: data => {
-                fn.notify({ value: data.mssg })
+                Notify({ value: data.mssg })
                 dispatch ? dispatch(notes_actions.updateNotes(data)) : null
             }
         })

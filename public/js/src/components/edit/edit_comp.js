@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import $ from 'jquery'
+import Notify from 'handy-notification'
+import TimeAgo from 'handy-timeago'
 import * as user_action from '../../rest_actions/user_actions'
 import * as fn from '../../functions/functions'
 
@@ -37,9 +39,9 @@ export default class Edit extends React.Component{
         button.addClass('a_disabled').text('Processing..').blur()
 
         if(username == ""){
-            fn.notify({ value: "Username must not be empty!" })
+            Notify({ value: "Username must not be empty!" })
         } else if(email == ""){
-            fn.notify({ value: "Email must not be empty!" })
+            Notify({ value: "Email must not be empty!" })
         } else {
             $.ajax({
                 url: "/api/edit_profile",
@@ -52,7 +54,7 @@ export default class Edit extends React.Component{
                 dataType: "JSON",
                 success: data => {
                     console.log(data)
-                    fn.notify({ value: (data.mssg.length > 0) ? data.mssg.slice(0, 1) : data.mssg })
+                    Notify({ value: (data.mssg.length > 0) ? data.mssg.slice(0, 1) : data.mssg })
                 }
             })
         }
@@ -78,7 +80,7 @@ export default class Edit extends React.Component{
             allowed = ['image/png', 'image/jpeg', 'image/gif']
         
         if(!allowed.includes(type)){
-            fn.notify({ value: "Only images allowed!" })
+            Notify({ value: "Only images allowed!" })
         } else {
             let form = new FormData()
             form.append('avatar', e.target.files[0])
@@ -91,7 +93,7 @@ export default class Edit extends React.Component{
                 dataType: "JSON",
                 success: data => {
                     console.log(data)
-                    fn.notify({ value: data.mssg, done: location.href })
+                    Notify({ value: data.mssg, done: location.href })
                 }
             })
         }
@@ -101,7 +103,7 @@ export default class Edit extends React.Component{
     render(){
         let { username, email, bio, file } = this.state,
             { id, joined } = this.props.edit.user_details,
-            user_joined = fn.time_ago(parseInt(joined))
+            user_joined = TimeAgo(parseInt(joined))
 
         return(
             <div class='edit' data-username={username} >

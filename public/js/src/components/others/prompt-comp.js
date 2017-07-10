@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 export default class Prompt extends React.Component{
     render(){
         let { title, content, actionText, action, close } = this.props
+        $('.prompt-done').focus()
         return(
             <div class="prompt">
                 <div class="prompt-top">
@@ -16,7 +17,7 @@ export default class Prompt extends React.Component{
                 </div>
                 <div class="prompt-bottom">
                     <a href="#" class="sec_btn prompt-cancel" onClick={e => close(e, "deleting")} >Cancel</a>
-                    <a href="#" class="pri_btn prompt-done" onClick={action} >{actionText}</a>
+                    <a href="#" class="pri_btn prompt-done" autoFocus="true" onClick={action} >{actionText}</a>
                 </div>
             </div>
         )

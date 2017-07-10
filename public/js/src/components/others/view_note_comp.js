@@ -2,6 +2,9 @@ import React from 'react'
 import $ from 'jquery'
 import axios from 'axios'
 import { FadeIn } from 'animate-components'
+import Notify from 'handy-notification'
+import Tooltip from 'handy-tooltip'
+import TimeAgo from 'handy-timeago'
 
 import * as notes_actions from '../../rest_actions/note_actions'
 import * as note_int_actions from '../../rest_actions/note_int_actions'
@@ -56,7 +59,7 @@ export default class View_note extends React.Component{
             { note_id, dispatch } = this.props
         
         if(title == "" || content == "" ){
-            fn.notify({ value: "Fields are empty!!" })
+            Notify({ value: "Fields are empty!!" })
             this.setState({ editing: true })
         } else {
             let options = { title, content, note_id, dispatch, done: () => this.setState({ editing: false }) }
@@ -83,7 +86,11 @@ export default class View_note extends React.Component{
             session = $('#data').data('session'),
             getid = $('#profile_data').data('getid')
 
-        fn.description({ selector: $('.like_unlike'), text: liked ? "Unlike" : "Like" })
+        // fn.description({ selector: $('.like_unlike'), text: liked ? "Unlike" : "Like" })
+        Tooltip({
+            selector: $('.like_unlike'),
+            value: liked ? "Unlike" : "Like"
+        })
 
         return(
             <div class='view_note modal'>
@@ -95,7 +102,7 @@ export default class View_note extends React.Component{
                         <img src={`/users/${user}/user.jpg`} alt=""/>
                         <div className="v_n_left">
                             <a href={`/profile/${user}`} className='v_n_username' >{username}</a>
-                            <span className="v_n_time">{fn.time_ago(parseInt(note_time))}</span>
+                            <span className="v_n_time">{TimeAgo(parseInt(note_time))}</span>
                         </div>
                     </div>
                     <span 

@@ -2,7 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 import { FadeIn } from 'animate-components'
 import * as fn from '../../functions/functions'
-
+import TimeAgo from 'handy-timeago'
 import Overlay from './overlay_comp'
 import View_note from './view_note_comp'
 
@@ -25,7 +25,7 @@ export default class Note extends React.Component{
                         <img src={`/users/${user}/user.jpg`} alt=""/>
                         <div className="note_h_left">
                             <span className="note_username">{username}</span>
-                            <span className='note_time' >{fn.time_ago(parseInt(note_time))}</span>
+                            <span className='note_time' >{TimeAgo(parseInt(note_time))}</span>
                         </div>
                     </div>
                     <div className="note_title">
