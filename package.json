@@ -29,6 +29,8 @@
   "homepage": "https://github.com/yTakkar/MERN-Social-Network#readme",
   "license": "ISC",
   "dependencies": {
+    "animate-components": "^1.4.2",
+    "animate-keyframes": "^0.1.5",
     "aphrodite": "^1.2.1",
     "axios": "^0.16.1",
     "bcrypt-nodejs": "^0.0.3",

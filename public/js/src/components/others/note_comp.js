@@ -35,7 +35,11 @@ export default class Note extends React.Component{
                     </div>
                 </div>
                 { this.state.viewing ? <Overlay/> : null }
-                { this.state.viewing ? <View_note {...this.props} close={this.toggle_viewing} /> : null }
+                { 
+                    this.state.viewing ? 
+                        <View_note key={this.props.note_id} {...this.props} close={this.toggle_viewing} />
+                    : null 
+                }
             </div>
         )
     }
