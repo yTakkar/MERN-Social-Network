@@ -1,5 +1,5 @@
 # MERN-Social-Network
-A simple MERN Social-Network to check the power, speed & awesomeness of MERN stack. Believe me it's really fast, reactive & fun.
+A Notes App developed with MERN stack to explore the speed, power & awesomeness of MERN stack. And boy it's really fast, reactive & fun.
 I'm lovin' it!!
 
 # Quick liks
