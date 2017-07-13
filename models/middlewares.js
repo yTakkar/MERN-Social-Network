@@ -7,7 +7,7 @@ const LoggedIn = (req, res, next) => {
 }
 
 const NotLoggedIn = (req, res, next) => {
-    !req.session.id ? next() : res.redirect('/profile')
+    !req.session.id ? next() : res.redirect('/')
 }
 
 const MainRedirect = (req, res, next) => {

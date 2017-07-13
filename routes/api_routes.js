@@ -13,7 +13,7 @@ app.post('/notes', (req, res) => {
 
 // /FOR DETAILS OF GIVEN USER
 app.post('/get_details', (req, res) => {
-    db.query('SELECT id, username, email, bio, joined FROM users WHERE id=?', [req.body.get])
+    db.query('SELECT * FROM users WHERE id=?', [req.body.get])
         .then(get => res.json(get[0]) )
         .catch(err => res.json(err) )
 })

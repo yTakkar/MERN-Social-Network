@@ -10,6 +10,14 @@ app.get('/signup', mw.NotLoggedIn, (req, res) => {
     res.render('register', {options})
 })
 
+app.get('/registered', mw.LoggedIn, (req, res) => {
+    login.registered(req, res)
+})
+
+app.get('/activate/:id', mw.LoggedIn, (req, res) => {
+    login.activate(req, res)
+})
+
 app.get('/login', mw.NotLoggedIn, (req, res) => {
     let options = { title: "Login to note" }
     res.render('login', {options})

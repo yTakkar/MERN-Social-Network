@@ -93,7 +93,7 @@ export default class Edit extends React.Component{
                 dataType: "JSON",
                 success: data => {
                     console.log(data)
-                    Notify({ value: data.mssg, done: location.href })
+                    Notify({ value: data.mssg, done: () => location.reload() })
                 }
             })
         }
@@ -148,11 +148,19 @@ export default class Edit extends React.Component{
                     ></textarea>
                 </div>
                 <div className="eb_btns">
-                    <form class='avatar_form' method="post" encType='multipart/formdata' >
-                        <input type="file" name="avatar" value={file} id="avatar_file" onChange={this.change_avatar} />
-                        <label for="avatar_file" class="avatar_span sec_btn">Change avatar</label>
-                    </form>
-                    <a href="#" className="pri_btn e_done" onClick={this.edit_profile} >Done Editing</a>
+                    {
+                        fn.e_verified() ?
+                            <form class='avatar_form' method="post" encType='multipart/formdata' >
+                                <input type="file" name="avatar" value={file} id="avatar_file" onChange={this.change_avatar} />
+                                <label for="avatar_file" class="avatar_span sec_btn">Change avatar</label>
+                            </form>
+                        : null
+                    }
+                    <a 
+                        href="#" 
+                        className={`pri_btn e_done ${!fn.e_verified() ? "a_disabled" : ""}`} 
+                        onClick={this.edit_profile} 
+                    >{fn.e_verified() ? "Done editing" : "Verify email to edit & change avatar"}</a>
                 </div>
                 <div className="e_joined">
                     <span>{`You joined Notes App ${user_joined}`}</span>

@@ -802,6 +802,19 @@ select:focus {
 .cua input[type='submit'] {
   width: 99%;
 }
+.registered {
+  position: absolute;
+  background: #fff;
+  padding: 20px;
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
 .user_banner {
   text-align: center;
   position: relative;

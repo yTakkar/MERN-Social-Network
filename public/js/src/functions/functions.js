@@ -55,6 +55,12 @@ const MeOrNot = user => {
   return user == $('#data').data('session') ? true : false
 }
 
+// FUNCTION TO CHECK WHETHER EMAIL IS ACTIVATED ON NOT
+const e_verified = () => {
+  let ea = $('.data').data('email-verified')
+  return ea == "yes" ? true : false
+}
+
 // TO FOLLOW
 const follow = options => {
   let defaults = {
@@ -191,6 +197,7 @@ module.exports = {
     commonLogin,
     capitilize_first,
     MeOrNot,
+    e_verified,
     follow,
     unfollow,
     delete_note,

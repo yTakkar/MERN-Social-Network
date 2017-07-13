@@ -44,7 +44,11 @@ export default class Home extends React.Component{
             <div class='home' >
                 <div className="home_info">
                     <span>{no_of_feeds}</span>
-                    <a href='#' class='pri_btn' onClick={e => this.toggle_(e, "note") } >Create note</a>
+                    <a 
+                        href='#' 
+                        class={`pri_btn ${!fn.e_verified() ? "a_disabled" : ""}`} 
+                        onClick={e => this.toggle_(e, "note") } 
+                    >{fn.e_verified() ? "Create note" : "Verify email to create note"}</a>
                 </div>
                 { notes.length == 0 ? <Nothing mssg={'Looks like you"re new, Follow some to fill up your feed'} /> : <Feeds {...this.props} /> }
                 { notes.length != 0 ? <End/> : null }

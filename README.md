@@ -40,6 +40,7 @@ UI is taken from [Instagam-clone](https://github.com/yTakkar/Instagram-Clone) I 
 2. Create a `.env` file and insert the following code. Replace values with yours!!
 
     ```javascript
+    PORT=YOUR_PORT
     MYSQL_HOST="host"
     MYSQL_USER="user"
     MYSQL_PASSWORD="password"
