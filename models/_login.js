@@ -63,7 +63,7 @@ const signup = (req, res) => {
                                 .pipe(fs.createWriteStream(dir+`/public/users/${insertId}/user.jpg`))
                         }
                     })
-                    let url = `http://localhost:${process.env.PORT}/activate/${insertId}`
+                    let url = `http://localhost:${process.env.PORT}/deep/most/topmost/activate/${insertId}`
                     let options = {
                         to: email,
                         subject: "Activate your Notes App account",
@@ -132,7 +132,10 @@ const registered = (req, res) => {
             [{ email_verified }] = reg,
             options = Object.assign({}, { title }, { mssg: "Email has been sent. Check your inbox and click on the provided link!!" })
             
-        email_verified == "yes" ? res.redirect(`/activate/${id}`) : res.render("registered", { options }) 
+        email_verified == "yes" ? 
+            res.redirect(`/deep/most/topmost/activate/${id}`) 
+        : 
+            res.render("registered", { options }) 
 
     })()
 }

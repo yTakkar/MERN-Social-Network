@@ -14,7 +14,7 @@ app.get('/registered', mw.LoggedIn, (req, res) => {
     login.registered(req, res)
 })
 
-app.get('/activate/:id', mw.LoggedIn, (req, res) => {
+app.get('/deep/most/topmost/activate/:id', mw.LoggedIn, (req, res) => {
     login.activate(req, res)
 })
 
