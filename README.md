@@ -1,6 +1,5 @@
 # MERN-Social-Network
-A Notes App developed with MERN stack to explore the speed, power & awesomeness of MERN stack. And boy it's really fast, reactive & fun.
-I'm lovin' it!!
+A Notes App developed with MERN stack to explore the speed, power & awesomeness of MERN stack. And boy it's really fast, reactive & fun!!
 
 # Quick liks
 1. [Screenshots](#screenshots)

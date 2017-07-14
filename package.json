@@ -1,5 +1,5 @@
 {
-  "name": "notes_app",
+  "name": "notes-app",
   "version": "1.0.0",
   "description": "A simple, fast, reactive & easy-to-use MERN Social-Network!",
   "main": "app.js",
