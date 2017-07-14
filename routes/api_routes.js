@@ -1,7 +1,8 @@
 const app = require('express').Router()
 const db = require('../models/db')
-const upload = require('multer')({ dest: `${process.cwd()}/public/temp/` })
 const gm = require('../models/gm')
+const mail = require('../models/mail')
+const upload = require('multer')({ dest: `${process.cwd()}/public/temp/` })
 const file = require('../models/file_system')
 const P = require('bluebird')
 
@@ -101,6 +102,23 @@ app.post('/change_avatar', upload.single('avatar'), (req, res) => {
         let modify = yield gm(obj)
         let dlt = yield file.dlt_all_of_folder(`${process.cwd()}/public/temp/`)
         res.json({ mssg: "Avatar changed!" })
+    })()
+})
+
+// FOR RESENDING VERIFICATION LINK
+app.post('/resend_vl', (req, res) => {
+    P.coroutine(function *(){
+        let 
+            { id } = req.session
+            e_q = yield db.query("SELECT email FROM users WHERE id=?", [id]),
+            [{ email }] = e_q,
+            url = `http://localhost:${process.env.PORT}/deep/most/topmost/activate/${id}`,
+            options = {
+                to: email,
+                subject: "Activate your Notes App account",
+                html: `<span>Hello, You received this message because you created an account on Notes App.<span><br><span>Click on button below to activate your account and explore.</span><br><br><a href='${url}' style='border: 1px solid #1b9be9; font-weight: 600; color: #fff; border-radius: 3px; cursor: pointer; outline: none; background: #1b9be9; padding: 4px 15px; display: inline-block; text-decoration: none;'>Activate</a>`
+            }
+        mail(options).then(re => res.json({ mssg: "Verification link sent to your email!" }) )
     })()
 })
 

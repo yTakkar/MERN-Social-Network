@@ -100,6 +100,26 @@ export default class Edit extends React.Component{
             
      }
 
+     resend_vl = e => {
+         e.preventDefault()
+         $('.resend_vl')
+            .addClass('a_disabled')
+            .text('Sending verification link..')
+         $.ajax({
+             url: "/api/resend_vl",
+             method: "POST",
+             dataType: "JSON",
+             success: data => {
+                 console.log(data)
+                 Notify({ value: data.mssg })
+                 $('.resend_vl')
+                    .removeClass('a_disabled')
+                    .text('Send verification link')
+                    .blur()
+             }
+         })
+     }
+
     render(){
         let { username, email, bio, file } = this.state,
             { id, joined } = this.props.edit.user_details,
@@ -148,23 +168,27 @@ export default class Edit extends React.Component{
                     ></textarea>
                 </div>
                 <div className="eb_btns">
-                    {
-                        fn.e_verified() ?
-                            <form class='avatar_form' method="post" encType='multipart/formdata' >
-                                <input type="file" name="avatar" value={file} id="avatar_file" onChange={this.change_avatar} />
-                                <label for="avatar_file" class="avatar_span sec_btn">Change avatar</label>
-                            </form>
-                        : null
-                    }
-                    <a 
-                        href="#" 
-                        className={`pri_btn e_done ${!fn.e_verified() ? "a_disabled" : ""}`} 
-                        onClick={this.edit_profile} 
-                    >{fn.e_verified() ? "Done editing" : "Verify email to edit & change avatar"}</a>
+                    <form class='avatar_form' method="post" encType='multipart/formdata' >
+                        <input type="file" name="avatar" value={file} id="avatar_file" onChange={this.change_avatar} />
+                        <label 
+                            for="avatar_file" 
+                            class={`avatar_span sec_btn ${!fn.e_verified() ? "sec_btn_disabled" : ""}`}
+                        >{fn.e_verified() ? "Change avatar" : "Verify email to change avatar"}</label>
+                    </form>
+                    <a href="#" className="pri_btn e_done" onClick={this.edit_profile} >Done editing</a>
                 </div>
                 <div className="e_joined">
                     <span>{`You joined Notes App ${user_joined}`}</span>
                 </div>
+
+                {
+                    !fn.e_verified() ?
+                        <div className="resend_vl_div" >
+                            <a href='#' className="pri_btn resend_vl" onClick={this.resend_vl} >Resend verification link</a>
+                        </div>
+                    : null
+                }
+
             </div>
         )
     }

@@ -1130,6 +1130,14 @@ select:focus {
 .edit textarea {
   height: 100px;
 }
+.edit .resend_vl_div {
+  text-align: right;
+}
+.edit .resend_vl_div .resend_vl {
+  display: inline-block;
+  padding: 5px 15px;
+  margin-right: 21px;
+}
 .home {
   position: relative;
   width: 607px;
