@@ -62,7 +62,7 @@
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
-    "redux-promise-middleware": "^4.2.0",
+    "redux-promise-middleware": "4.2.1",
     "redux-thunk": "^2.2.0",
     "serve-favicon": "^2.4.3",
     "uuid": "^3.0.1"
