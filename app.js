@@ -1,23 +1,25 @@
 require('dotenv').config()
 
 // modules
-const express = require('express')
-const hbs = require('express-handlebars')
-const port = process.env.PORT
-const path = require('path')
-const logger = require('morgan')
-const favicon = require('serve-favicon')
-const bodyParser = require('body-parser')
-const validator = require('express-validator')
-const session = require('client-sessions')
-const app = express()
+const 
+    express = require('express'),
+    hbs = require('express-handlebars'),
+    port = process.env.PORT,
+    path = require('path'),
+    logger = require('morgan'),
+    favicon = require('serve-favicon'),
+    bodyParser = require('body-parser'),
+    validator = require('express-validator'),
+    session = require('client-sessions'),
+    app = express()
 
 // file modules
-const chalk = require('./models/chalk')
-const mainR = require('./routes/main_routes')
-const userR = require('./routes/user_routes')
-const apiR = require('./routes/api_routes')
-const mw = require('./models/middlewares')
+const 
+    chalk = require('./models/chalk'),
+    mainR = require('./routes/main_routes'),
+    userR = require('./routes/user_routes'),
+    apiR = require('./routes/api_routes'),
+    mw = require('./models/middlewares')
 
 // view engine
 app.engine('hbs', hbs({ extname: "hbs" }))

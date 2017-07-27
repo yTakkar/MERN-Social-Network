@@ -1,4 +1,5 @@
 import React from 'react'
+import { FadeIn } from 'animate-components'
 import Like_items from './like_items_comp'
 
 export default class Likes extends React.Component{
@@ -8,7 +9,8 @@ export default class Likes extends React.Component{
 
         return(
             <div class='likes modal modal_big' >
-                <div className="likes_header modal_header">
+                <FadeIn duration="300ms">
+                    <div className="likes_header modal_header">
                         <span>Likes</span>
                     </div>
                     <div className="likes_middle modal_middle">
@@ -23,6 +25,7 @@ export default class Likes extends React.Component{
                     <div className="likes_bottom modal_bottom">
                         <a href='#' className='likes_cancel pri_btn' onClick={e => close(e, "likes")} >Close</a>
                     </div>
+                </FadeIn>
             </div>
         )
     }

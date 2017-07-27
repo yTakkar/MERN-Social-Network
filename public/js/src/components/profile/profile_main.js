@@ -4,11 +4,13 @@ import Profile from './profile_comp'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
 
-if(/http:\/\/localhost:\d+\/profile\/\d+/g.test(location.href)){
+let elem = document.getElementById('profile_root')
+
+if(elem){
     ReactDOM.render(
         <Provider store={store} >
             <Profile/> 
         </Provider>,
-        document.getElementById('profile_root')
+        elem
     )
 }

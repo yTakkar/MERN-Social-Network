@@ -42,7 +42,7 @@ app.post('/delete_note', (req, res) => {
     P.coroutine(function *(){
         let 
             likes = db.query('DELETE FROM likes WHERE note_id=?', [note]),
-            dlt_note = db.query('DELETE FROM notes WHERE note_id = ?', [note]);
+            dlt_note = db.query('DELETE FROM notes WHERE note_id = ?', [note])
         res.json({ mssg: "Note deleted!" })
     })()
 })
@@ -55,39 +55,51 @@ app.post('/edit_note', (req, res) => {
         .catch(err => res.json(err) )
 })
 
-// FOR EDITING PROFILE
-app.post('/edit_profile', (req, res) => {
-    let { username, email, bio } = req.body,    
-        { id: session } = req.session
+// FOR GETTING THE COUNT OF GIVEN FIELD
+app.post('/what-exists', (req, res) => {
+    let { what, value } = req.body
+    db.query(`SELECT COUNT(${what}) AS count FROM users WHERE ${what}=?`, [ value ])
+        .then(s => res.json(s[0].count) )
+        .catch(e => res.json(e) )
+})
 
-    req.checkBody('username', 'Username is empty').notEmpty()
-    req.checkBody('username', 'Username must contain only leters').isAlpha()
-    req.checkBody('username', 'Username must be greater than 4').isLength({ min: 4 })
-    req.checkBody('username', 'Username must be less than 32').isLength({ max: 32 })
+// FOR EDTING PROFILE
+app.post('/edit-profile', (req, res) => {
+    P.coroutine(function *(){
+        let { username, email, bio } = req.body,    
+            { id: session } = req.session
 
-    req.checkBody('email', 'Email is empty').notEmpty()
-    req.checkBody('email', 'Email is invalid').isEmail()
+        req.checkBody('username', 'Username is empty').notEmpty()
+        req.checkBody('username', 'Username must contain only leters').isAlpha()
+        req.checkBody('username', 'Username must be greater than 4').isLength({ min: 4 })
+        req.checkBody('username', 'Username must be less than 32').isLength({ max: 32 })
 
-    let errors = req.validationErrors()
-    console.log(errors)
-    if(errors){
-        let array = []
-        for(let item of errors) {
-            array.push(item.msg)
-        }
-        res.json({ mssg: array })
-    } else {
-        P.coroutine(function *(){
+        req.checkBody('email', 'Email is empty').notEmpty()
+        req.checkBody('email', 'Email is invalid').isEmail()
+
+        let errors = yield req.getValidationResult()
+
+        if(!errors.isEmpty()){
+            let 
+                result = errors.array()
+                array = []
+            result.forEach(item => array.push(item.msg) )
+            res.json({ mssg: array })
+        } else {
+            
             req.session.username = username
-            let edit = yield db.query('UPDATE users SET username=?, email=?, bio=? WHERE id=?', [username, email, bio, session]),
+            let 
+                edit = yield db.query('UPDATE users SET username=?, email=?, bio=? WHERE id=?', [username, email, bio, session]),
                 notes = yield db.query('UPDATE notes SET username=? WHERE user=?', [username, session])
                 view = yield db.query('UPDATE profile_views SET view_by_username = ? WHERE view_by=?', [username, session]),
                 follower = yield db.query('UPDATE follow_system SET follow_by_username = ? WHERE follow_by=?', [username, session]),
                 following = yield db.query('UPDATE follow_system SET follow_to_username = ? WHERE follow_to=?', [username, session])
-            res.json({ mssg: ['Profile edited!'] })
-        })()
-    }
 
+            res.json({ mssg: 'Profile edited!', success: true })
+
+        }
+
+    })()
 })
 
 // FOR CHANGING AVATAR
@@ -168,7 +180,7 @@ app.post('/get_followings', (req, res) => {
         .catch(err => res.json(err) )
 })
 
-// GET FOLLOWINGS
+// GET PROFILE VIEWS
 app.post('/get_profile_views', (req, res) => {
     db.query('SELECT view_by, view_time FROM profile_views WHERE view_to = ? ORDER BY view_time DESC', [req.body.user])
         .then(views => res.json(views) )

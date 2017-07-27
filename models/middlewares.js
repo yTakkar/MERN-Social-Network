@@ -29,11 +29,7 @@ const not_found = (req, res, next) => {
 const MeOrNot = (req, res, next) => {
     db.query('SELECT COUNT(id) as e FROM users WHERE id=?', [req.params.id])
         .then(is => {
-            if(is[0].e == 0){
-                res.redirect('/error')
-            } else {
-                next()
-            }
+			is[0].e == 0 ? res.redirect('/error') : next()
         })
         .catch(err => console.log(err) )
 }

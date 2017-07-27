@@ -4,11 +4,13 @@ import Home from './home_comp'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
 
-if(/^http:\/\/localhost:\d+\/#?$/g.test(location.href)){
+let elem = document.getElementById('home_root')
+
+if(elem){
     ReactDOM.render(
         <Provider store={store} >
             <Home/>
         </Provider>,
-        document.getElementById('home_root')
+        elem
     )
 } 

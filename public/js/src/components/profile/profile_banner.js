@@ -120,23 +120,26 @@ export default class Banner extends React.Component{
 
                 { (creating_note || view_followers || view_followings ) ? <Overlay/> : null }
 
-                { creating_note ? 
-                    <FadeIn duration="50ms" >
+                { 
+                    creating_note ? 
                         <Create_note dispatch={this.props.dispatch} close={this.toggle_} /> 
-                    </FadeIn>
-                : null }
+                    : 
+                        null 
+                }
 
-                { view_followers ? 
-                    <FadeIn duration="50ms" >
+                { 
+                    view_followers ? 
                         <Followers dispatch={this.props.dispatch} followers={this.props.follow.followers} close={this.toggle_} /> 
-                    </FadeIn>
-                : null }
+                    : 
+                        null 
+                }
 
-                { view_followings ? 
-                    <FadeIn duration="50ms" >
+                { 
+                    view_followings ? 
                         <Followings dispatch={this.props.dispatch} followings={this.props.follow.followings} close={this.toggle_} /> 
-                    </FadeIn>
-                : null }
+                    : 
+                        null 
+                }
 
             </div>
         )
