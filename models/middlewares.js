@@ -1,5 +1,5 @@
 const db = require('./db')
-const file = require('./file_system')
+const pi = require('handy-image-processor')
 const P = require('bluebird')
 
 const LoggedIn = (req, res, next) => {
@@ -35,7 +35,7 @@ const MeOrNot = (req, res, next) => {
 }
 
 const delete_temp_images = (req, res, next) => {
-    file.dlt_all_of_folder(process.cwd()+'/public/temp/')
+    pi.DeleteAllOfFolder(process.cwd()+'/public/temp/')
     next()
 }
 

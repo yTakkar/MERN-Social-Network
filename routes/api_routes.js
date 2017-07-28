@@ -1,10 +1,10 @@
 const app = require('express').Router()
+const root = process.cwd()
 const db = require('../models/db')
-const gm = require('../models/gm')
 const mail = require('../models/mail')
-const upload = require('multer')({ dest: `${process.cwd()}/public/temp/` })
-const file = require('../models/file_system')
+const upload = require('multer')({ dest: `${root}/public/temp/` })
 const P = require('bluebird')
+const pi = require('handy-image-processor')
 
 // FOR NOTES
 app.post('/notes', (req, res) => {
@@ -109,10 +109,10 @@ app.post('/change_avatar', upload.single('avatar'), (req, res) => {
             srcFile: req.file.path,
             width: 200,
             height: 200,
-            destFile: `${process.cwd()}/public/users/${req.session.id}/user.jpg`
+            destFile: `${root}/public/users/${req.session.id}/user.jpg`
         }
-        let modify = yield gm(obj)
-        let dlt = yield file.dlt_all_of_folder(`${process.cwd()}/public/temp/`)
+        let modify = yield pi.ProcessImage(obj)
+        let dlt = yield pi.DeleteAllOfFolder(`${root}/public/temp/`)
         res.json({ mssg: "Avatar changed!" })
     })()
 })

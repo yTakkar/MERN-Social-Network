@@ -35,8 +35,8 @@
 
         <div class="right">
             {{# if session.id}}
-                <a href="/profile/{{session.id}}" class='vp' >{{session.username}}</a>
                 <a href="/edit">Edit profile</a>
+                <a href="/profile/{{session.id}}" class='vp' >{{session.username}}</a>
                 <a href="/logout" >Logout</a>
             {{ else }}
 				<a href="/">Home</a>
