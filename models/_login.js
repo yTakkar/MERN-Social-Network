@@ -75,7 +75,7 @@ const signup = (req, res) => {
                             session.id = insertId
                             session.username = username
                             session.email_verified = "no"
-                            res.json({ mssg: "You can login now!!", success: true })
+                            res.json({ mssg: `Hello, ${session.username}!!`, success: true })
                         })
                         .catch(me =>{
                             chalk.e(me)
@@ -115,7 +115,7 @@ const login = (req, res) => {
                     session.username = rusername  
                     session.email_verified = email_verified
 
-                    res.json({ mssg: "Yepp you're the man", success: true })
+                    res.json({ mssg: `Hello, ${session.username}!!`, success: true })
                 }
             }
         }
