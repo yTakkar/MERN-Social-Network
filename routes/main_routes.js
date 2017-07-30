@@ -1,7 +1,8 @@
-const app = require('express').Router()
-const db = require('../models/db')
-const chalk = require('../models/chalk')
-const mw = require('../models/middlewares')
+const 
+    app = require('express').Router(),
+    db = require('../models/db'),
+    chalk = require('../models/chalk'),
+    mw = require('../models/middlewares')
 
 app.get('/welcome', (req, res) => {
     let options = { title: "Welcome to Notes App" }

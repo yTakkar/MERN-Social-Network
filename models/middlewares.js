@@ -1,6 +1,7 @@
-const db = require('./db')
-const pi = require('handy-image-processor')
-const P = require('bluebird')
+const 
+    db = require('./db'),
+    pi = require('handy-image-processor'),
+    P = require('bluebird')
 
 const LoggedIn = (req, res, next) => {
     req.session.id ? next() : res.redirect('/login')

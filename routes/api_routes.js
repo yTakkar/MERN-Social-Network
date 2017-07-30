@@ -1,10 +1,11 @@
-const app = require('express').Router()
-const root = process.cwd()
-const db = require('../models/db')
-const mail = require('../models/mail')
-const upload = require('multer')({ dest: `${root}/public/temp/` })
-const P = require('bluebird')
-const pi = require('handy-image-processor')
+const 
+    app = require('express').Router(),
+    root = process.cwd(),
+    db = require('../models/db'),
+    mail = require('../models/mail'),
+    upload = require('multer')({ dest: `${root}/public/temp/` }),
+    P = require('bluebird'),
+    pi = require('handy-image-processor')
 
 // FOR NOTES
 app.post('/notes', (req, res) => {

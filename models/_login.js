@@ -1,10 +1,11 @@
-const db = require('../models/db')
-const mail = require('../models/mail')
-const chalk = require('./chalk')
-const P = require('bluebird')
-const fs = require('fs')
-const path = require('path')
-const dir = process.cwd()
+const 
+    db = require('../models/db'),
+    mail = require('../models/mail'),
+    chalk = require('./chalk'),
+    P = require('bluebird'),
+    fs = require('fs'),
+    path = require('path'),
+    dir = process.cwd()
 
 const signup = (req, res) => {
     let { body: { username, email, password, password_again }, session } = req
