@@ -1,5 +1,6 @@
 import React from 'react'
 import { FadeIn } from 'animate-components'
+import { Scrollbars } from 'react-custom-scrollbars'
 import Follower_items from './follower_items_comp'
 
 export default class Followers extends React.Component{
@@ -12,7 +13,7 @@ export default class Followers extends React.Component{
                     <div className="fer_header modal_header">
                         <span>Followers</span>
                     </div>
-                    <div className="fer_middle modal_middle">
+                    <Scrollbars style={{ height: 450 }} className="fer_middle modal_middle">
                         <div className="modal_main">
                             {
                                 followers.map(ff => {
@@ -20,7 +21,7 @@ export default class Followers extends React.Component{
                                 })
                             }
                         </div>
-                    </div>
+                    </Scrollbars>
                     <div className="fer_bottom modal_bottom">
                         <a href='#' className='fer_cancel pri_btn' onClick={e => close(e, "followers") } >Close</a>
                     </div>
