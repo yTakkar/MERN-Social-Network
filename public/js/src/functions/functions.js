@@ -47,6 +47,11 @@ const commonLogin = (options) => {
     })
 }
 
+// TO REMOVE LINE OF LAST ELEMENT
+const last_line_remover = () => {
+  $('.modal_main').children().eq($('.display_content').children().length - 1).find('hr').remove()
+}
+
 // FUNCTION TO CAPITALIZE FIRST LETTER OF A WORD
 const capitilize_first = (str) => {
   return str.charAt(0).toUpperCase()+str.substr(1)
@@ -285,6 +290,7 @@ const resend_vl = () => {
 module.exports = {
     nameShortener,
     commonLogin,
+    last_line_remover,
     capitilize_first,
     MeOrNot,
     e_verified,

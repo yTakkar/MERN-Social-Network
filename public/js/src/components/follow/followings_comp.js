@@ -2,8 +2,12 @@ import React from 'react'
 import { FadeIn } from 'animate-components'
 import { Scrollbars } from 'react-custom-scrollbars'
 import Following_items from './following_items_comp'
+import * as fn from '../../functions/functions'
 
 export default class Followings extends React.Component{
+
+    componentDidMount = () => fn.last_line_remover()
+
     render(){
         let { dispatch, close, followings } = this.props
 
