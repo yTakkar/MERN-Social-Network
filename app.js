@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 // modules
-const 
+const
     express = require('express'),
     hbs = require('express-handlebars'),
     port = process.env.PORT,
@@ -14,7 +14,7 @@ const
     app = express()
 
 // file modules
-const 
+const
     chalk = require('./models/chalk'),
     mainR = require('./routes/main_routes'),
     userR = require('./routes/user_routes'),
@@ -22,8 +22,8 @@ const
     mw = require('./models/middlewares')
 
 // view engine
-app.engine('hbs', hbs({ extname: "hbs" }))
-app.set('view engine', 'hbs')
+app.engine('handlebars', hbs({ extname: "handlebars" }))
+app.set('view engine', 'handlebars')
 
 // middlewares
 app.use(favicon(path.join(__dirname, "/public/images/favicon/favicon.ico")))
