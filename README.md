@@ -49,7 +49,7 @@ UI is taken from [Instagam-clone](https://github.com/yTakkar/Instagram-Clone) I 
 
 4. Start the server
     ```javascript
-    npm run start
+    npm start
     ```
 
 5. Now load the app
