@@ -1,0 +1,12 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "editor.minimap.enabled": true,
+    "typescript.check.tscVersion": false,
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+		"git.ignoreLimitWarning": true,
+		"editor.tabSize": 2
+	}
