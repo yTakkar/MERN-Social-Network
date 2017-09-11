@@ -16,6 +16,7 @@
     <div 
         data-session="{{ session.id }}" 
         data-username="{{ session.username }}" 
+        data-email-verified="{{ session.email_verified }}"
         data-loggedIn="{{ loggedIn }}" 
         class="data" 
         id="data" 
@@ -34,11 +35,11 @@
 
         <div class="right">
             {{# if session.id}}
-                <a href="/profile/{{session.id}}" class='vp' >{{session.username}}</a>
                 <a href="/edit">Edit profile</a>
+                <a href="/profile/{{session.id}}" class='vp' >{{session.username}}</a>
                 <a href="/logout" >Logout</a>
             {{ else }}
-            <a href="/">Home</a>
+				<a href="/">Home</a>
                 <a href="/login">Login</a>
                 <a href="/signup">Signup</a>
             {{/if}}

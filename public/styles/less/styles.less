@@ -123,6 +123,21 @@
     width: 99%;
 }
 
+// REGISTERED PAGE
+.registered{
+  position: absolute;
+  background: @ff;
+  padding: 20px;
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,.1);
+  cursor: pointer;
+}
+
 // PROFILE PAGE
 .user_banner{
     text-align: center;
@@ -448,7 +463,7 @@
   left: 490px;
   font-size: 14px;
 
-  & > *{
+  & .edit_animate > *{
     display: block;
     width: 100%;
     margin-top: 15px;
@@ -517,6 +532,17 @@
 
   & textarea{
     height: 100px;
+  }
+
+  & .resend_vl_div{
+    text-align: right;
+
+    & .resend_vl{
+      display: inline-block;
+      padding: 5px 15px;
+      margin-right: 21px;
+    }
+
   }
 
 }

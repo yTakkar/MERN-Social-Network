@@ -7,18 +7,22 @@ const note_int_defaults = {
 
 const note_int = (state=note_int_defaults, action) => {
     switch(action.type){
-        case "LIKED_OR_NOT": {
+        case "LIKED_OR_NOT": 
             return { ...state, liked: action.payload }
-        }
-        case "LIKES": {
+            break;
+
+        case "LIKES": 
             return { ...state, likes: action.payload }
-        }
-        case "LIKED": {
+            break;
+
+        case "LIKED": 
             return { ...state, liked: true, likes: liked(state.likes, action.payload) }
-        }
-        case "UNLIKED": {
+            break;
+
+        case "UNLIKED": 
             return { ...state, liked: false, likes: unliked(state.likes, action.payload) }
-        }
+            break;
+
     }
     return state
 }

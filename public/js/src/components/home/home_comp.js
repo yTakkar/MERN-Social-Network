@@ -1,6 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 import { connect } from 'react-redux'
+import { FadeIn } from 'animate-components'
 import * as fn from '../../functions/functions'
 import * as notes_actions from '../../rest_actions/note_actions'
 
@@ -30,9 +31,7 @@ export default class Home extends React.Component{
     }
 
     componentWillMount = () => {
-        let { props: { dispatch } } = this,
-            get = $('#data').data('session')
-        dispatch(notes_actions.getFeeds())
+        this.props.dispatch(notes_actions.getFeeds())
     }
 
     render(){
@@ -42,10 +41,18 @@ export default class Home extends React.Component{
 
         return(
             <div class='home' >
-                <div className="home_info">
-                    <span>{no_of_feeds}</span>
-                    <a href='#' class='pri_btn' onClick={e => this.toggle_(e, "note") } >Create note</a>
-                </div>
+                
+                <FadeIn duration="300ms">
+                    <div className="home_info">
+                        <span>{no_of_feeds}</span>
+                        <a 
+                            href='#' 
+                            class={`pri_btn ${!fn.e_verified() ? "a_disabled" : ""}`} 
+                            onClick={e => this.toggle_(e, "note") } 
+                        >{fn.e_verified() ? "Create note" : "Verify email to create note"}</a>
+                    </div>
+                </FadeIn>
+
                 { notes.length == 0 ? <Nothing mssg={'Looks like you"re new, Follow some to fill up your feed'} /> : <Feeds {...this.props} /> }
                 { notes.length != 0 ? <End/> : null }
 

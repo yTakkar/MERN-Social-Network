@@ -1,16 +1,23 @@
 import React from 'react'
+import { FadeIn } from 'animate-components'
+import { Scrollbars } from 'react-custom-scrollbars'
 import Following_items from './following_items_comp'
+import * as fn from '../../functions/functions'
 
 export default class Followings extends React.Component{
+
+    componentDidMount = () => fn.last_line_remover()
+
     render(){
         let { dispatch, close, followings } = this.props
 
         return(
             <div class='followers modal modal_big' >
-                <div className="fer_header modal_header">
+                <FadeIn duration="300ms">
+                    <div className="fer_header modal_header">
                         <span>Followings</span>
                     </div>
-                    <div className="fer_middle modal_middle">
+                    <Scrollbars style={{ height: 450 }} className="fer_middle modal_middle">
                         <div className="modal_main">
                             {
                                 followings.map(ff => {
@@ -18,10 +25,11 @@ export default class Followings extends React.Component{
                                 })
                             }
                         </div>
-                    </div>
+                    </Scrollbars>
                     <div className="fer_bottom modal_bottom">
                         <a href='#' className='fer_cancel pri_btn' onClick={e => close(e, "followings") } >Close</a>
                     </div>
+                </FadeIn>
             </div>
         )
     }

@@ -102,10 +102,17 @@ export default class Banner extends React.Component{
                     <div className="user_buttons">
                         {
                             fn.MeOrNot(getid) ? 
-                            <a href="#" className="create_note_btn pri_btn" id=""  onClick={e => this.toggle_(e, "note") }>Create note</a> : 
+                                <a 
+                                    href="#" 
+                                    className={`create_note_btn pri_btn ${!fn.e_verified() ? "a_disabled" : ""}`} 
+                                    id=""  
+                                    onClick={e => this.toggle_(e, "note") }
+                                >{fn.e_verified() ? "Create note" : "Verify email to create note"}</a> 
+                            : 
                             (is_following) ? 
-                            <a href="#" className="unfollow pri_btn" onClick={this.unfollow} >Unfollow</a> :
-                            <a href="#" className="follow pri_btn" onClick={this.follow} >Follow</a>
+                                <a href="#" className="unfollow pri_btn" onClick={this.unfollow} >Unfollow</a> 
+                            :
+                                <a href="#" className="follow pri_btn" onClick={this.follow} >Follow</a>
                         }
                     </div>
 
@@ -113,23 +120,26 @@ export default class Banner extends React.Component{
 
                 { (creating_note || view_followers || view_followings ) ? <Overlay/> : null }
 
-                { creating_note ? 
-                    <FadeIn duration="50ms" >
+                { 
+                    creating_note ? 
                         <Create_note dispatch={this.props.dispatch} close={this.toggle_} /> 
-                    </FadeIn>
-                : null }
+                    : 
+                        null 
+                }
 
-                { view_followers ? 
-                    <FadeIn duration="50ms" >
+                { 
+                    view_followers ? 
                         <Followers dispatch={this.props.dispatch} followers={this.props.follow.followers} close={this.toggle_} /> 
-                    </FadeIn>
-                : null }
+                    : 
+                        null 
+                }
 
-                { view_followings ? 
-                    <FadeIn duration="50ms" >
+                { 
+                    view_followings ? 
                         <Followings dispatch={this.props.dispatch} followings={this.props.follow.followings} close={this.toggle_} /> 
-                    </FadeIn>
-                : null }
+                    : 
+                        null 
+                }
 
             </div>
         )

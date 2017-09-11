@@ -38,10 +38,9 @@ export default class Note extends React.Component{
                 { this.state.viewing ? <Overlay/> : null }
                 { 
                     this.state.viewing ? 
-                        <FadeIn duration="50ms" >
-                            <View_note key={this.props.note_id} {...this.props} close={this.toggle_viewing} />
-                        </FadeIn>
-                    : null 
+                        <View_note key={this.props.note_id} {...this.props} close={this.toggle_viewing} />
+                    :
+                         null 
                 }
             </div>
         )

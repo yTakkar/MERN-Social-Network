@@ -1,6 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 import { connect } from 'react-redux'
+import { FadeIn } from 'animate-components'
 
 import * as follow_action from '../../rest_actions/follow_actions'
 import * as notes_action from '../../rest_actions/note_actions'
@@ -38,8 +39,10 @@ export default class Profile extends React.Component{
     render(){
         return(
             <div class='profile' >
-                <Banner {...this.props} />
-                <Notes {...this.props}  />
+                <FadeIn duration="300ms">
+                    <Banner {...this.props} />
+                    <Notes {...this.props}  />
+                </FadeIn>
             </div>
         )
     }

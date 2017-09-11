@@ -1,13 +1,22 @@
-const app = require('express').Router()
-const db = require('../models/db')
-const chalk = require('../models/chalk')
-const mw = require('../models/middlewares')
-const login = require('../models/_login')
-const P = require('bluebird')
+const 
+    app = require('express').Router(),
+    db = require('../models/db'),
+    chalk = require('../models/chalk'),
+    mw = require('../models/middlewares'),
+    login = require('../models/_login'),
+    P = require('bluebird')
 
 app.get('/signup', mw.NotLoggedIn, (req, res) => {
     let options = { title: "Signup to note" }
     res.render('register', {options})
+})
+
+app.get('/registered', mw.LoggedIn, (req, res) => {
+    login.registered(req, res)
+})
+
+app.get('/deep/most/topmost/activate/:id', mw.LoggedIn, (req, res) => {
+    login.activate(req, res)
 })
 
 app.get('/login', mw.NotLoggedIn, (req, res) => {

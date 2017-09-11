@@ -10,7 +10,7 @@ let transporter = nodemailer.createTransport({
 
 let mail = options => {
     return new Promise((resolve, reject) => {
-        let o = Object.assign({}, {from: `<${process.env.MAIL}>`}, options )
+        let o = Object.assign({}, {from: `"Notes App" <${process.env.MAIL}>`}, options )
         transporter.sendMail(o, (err, res) => {
             err ? reject(err) : resolve('Mail sent!!')
         })

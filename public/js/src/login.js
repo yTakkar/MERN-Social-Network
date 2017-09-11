@@ -24,7 +24,7 @@ $('form.form_register').submit(e => {
             },
             btn: $('.r_submit'),
             url: "/user/signup",
-            redirect: "/login",
+            redirect: "/registered",
             defBtnValue: "Sign up for free",
         }
         fn.commonLogin(signupOpt)

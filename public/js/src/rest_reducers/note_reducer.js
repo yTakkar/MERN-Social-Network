@@ -4,21 +4,26 @@ const notes_state = {
 
 const notes = (state=notes_state, action) => {
     switch (action.type) {
-        case "GET_NOTES": {
+        case "GET_NOTES": 
             return { ...state, notes: action.payload }
-        }
-        case "GET_FEEDS": {
+            break;
+
+        case "GET_FEEDS": 
             return { ...state, notes: action.payload }
-        }
-        case "UPDATE_NOTES": {
+            break;
+
+        case "UPDATE_NOTES": 
             return { ...state, notes: update_note(state.notes, action.payload) }
-        }
-        case "DELETE_NOTE": {
+            break;
+
+        case "DELETE_NOTE": 
             return { ...state, notes: delete_note(state.notes, action.payload) }
-        }
-        case "EDIT_NOTE": {
+            break;
+
+        case "EDIT_NOTE": 
             return { ...state, notes: edit_note(state.notes, action.payload) }
-        }
+            break;
+
     }
     return state
 }
