@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import $ from 'jquery'
+import TimeAgo from 'handy-timeago'
 import * as fn from '../../functions/functions'
 import * as follow_action from '../../rest_actions/follow_actions'
 
@@ -53,7 +54,7 @@ export default class Follower_items extends React.Component{
                 <div className="modal_it_content">
                     <div className="modal_it_info">
                         <a href={`/profile/${follow_to}`} class='modal_it_username' >{follow_to_username}</a>
-                        <span class='modal_it_light' >{fn.time_ago(parseInt(follow_time))}</span>
+                        <span class='modal_it_light' >{TimeAgo(parseInt(follow_time))}</span>
                     </div>
                     <div className="modal_ff">
                         { 

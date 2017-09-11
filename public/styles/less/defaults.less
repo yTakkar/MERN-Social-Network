@@ -420,8 +420,14 @@ input[type="file"]{
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background: transparent;
+  background: #000;
+  opacity: 0.5;
   z-index: 2;
+}
+
+.not_visible_hidden_overlay{
+  background: transparent !important;
+  opacity: 1 !important;
 }
 
 select{
@@ -530,7 +536,7 @@ select:focus{
   z-index: 4;
 }
 
-.notify{
+.handy-notify{
   position: fixed;
   background: #333;
   left: 2%;
@@ -546,7 +552,7 @@ select:focus{
   top: 105%;
 }
 
-.after::after{
+.handy-tooltip-after::after{
   content: "";
   position: absolute;
   width: 8px;
@@ -560,7 +566,7 @@ select:focus{
   z-index: -1;
 }
 
-.before::before{
+.handy-tooltip-before::before{
   content: "";
   position: absolute;
   width: 8px;
@@ -736,9 +742,11 @@ select:focus{
   & .modal_middle{
     height: 450px;
     position: relative;
-    overflow-y: scroll;
+    overflow: auto;
+    padding: 0px !important;
 
     & .modal_main{
+      padding: 10px 0px;
 
       & .modal_items{
         margin-bottom: 5px;

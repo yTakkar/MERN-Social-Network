@@ -1,5 +1,6 @@
-const mysql = require('mysql')
-const chalk = require('./chalk')
+const 
+    mysql = require('mysql'),
+    chalk = require('./chalk')
 
 const db = mysql.createConnection({
     host: process.env.MYSQL_HOST,

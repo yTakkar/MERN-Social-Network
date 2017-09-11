@@ -1,5 +1,7 @@
 import $ from 'jquery'
-
+import Notify from 'handy-notification'
+import P from 'bluebird'
+import axios from 'axios'
 import * as follow_action from '../rest_actions/follow_actions'
 import * as notes_actions from '../rest_actions/note_actions'
 import * as note_int_actions from '../rest_actions/note_int_actions'
@@ -10,126 +12,6 @@ const nameShortener = (elem, length) => {
       len = elem.length
   if (!parse) { return; }
   return (len >= parse) ? `${elem.substr(0, length-2)}..` : (len < parse) ? elem : null
-}
-
-// FUNCTION TO COPY SPECIFIED TEXT TO CLIPBOARD
-const copyTextToClipboard = (text) => {
-  var
-    textArea = document.createElement("textarea"),
-    st = textArea.style;
-
-  st.position = 'fixed';
-  st.top = 0;
-  st.left = 0;
-  st.width = '2em';
-  st.height = '2em';
-  st.padding = 0;
-  st.border = 'none';
-  st.outline = 'none';
-  st.boxShadow = 'none';
-  st.background = 'transparent';
-
-  textArea.value = text;
-  document.body.appendChild(textArea);
-  textArea.select();
-
-  try {
-    var successful = document.execCommand('copy');
-    var msg = successful ? 'Link copied!' : 'Unable to copy';
-    console.log(msg);
-    notify({ value: mssg })
-  } catch (err) {
-    console.log('Unable to copy');
-    notify({ value: "Unable to copy!!" })
-  }
-
-  document.body.removeChild(textArea);
-
-}
-
-// FUNCTION TO NOTIFY
-const notify = options => {
-  let defaults = {
-    beforeTop: "105%",
-    afterTop : "90%",
-    value    : "Message",
-    selector: $('.notify'),
-    action   : null,
-    done: null
-  }
-  let settings = { ...defaults, ...options }
-  
-  let { selector, value, beforeTop, afterTop, action, done } = settings
-
-  selector.children().filter('span').html(value)
-
-  selector.animate({
-    top: afterTop
-  }, "fast", () => {
-    (done != null) ? location.href = done : null
-    setTimeout(() => {
-      selector.animate({ top: beforeTop })
-    }, 3000)
-  })
-
-  selector.on('click', (e) => {
-    if (action != null) {
-      location.href = action
-    }
-    selector.animate({
-      top: beforeTop
-    })
-  })
-
-}
-
-const description = options => {
-  let defaults = {
-    selector: null,
-    extraTop: null,
-    extraLeft: null,
-    text: null
-  }
-  let settings = { ...defaults, ...options }
-  let { selector, extraTop, extraLeft, text } = settings
-  let hoverdiv = $('#hoverdiv')
-
-  selector.on('mouseover', e => {
-
-    let 
-      value    = (text == null) ? selector.data('description'): text,
-      top      = selector.offset().top,
-      left     = selector.offset().left,
-      width    = selector.width()/2,
-      dwidth   = hoverdiv.width()/2,
-      padding  = parseInt(selector.css('padding-left')),
-      dpadding = parseInt(hoverdiv.css('padding-left')),
-      height   = parseInt(selector.outerHeight()),
-      dheight  = parseInt(hoverdiv.outerHeight())
-    
-    hoverdiv.text(value)
-
-    hoverdiv.css({
-      left: left+width-dwidth+padding-dpadding+extraLeft,
-      display: "block"
-    })
-
-    if(top < (dheight)+16){
-      hoverdiv
-        .removeClass('after')
-        .addClass('before')
-        .css('top', top+height+10+extraTop)
-    } else {
-      hoverdiv
-        .removeClass('before')
-        .addClass('after')
-        .css('top', top-height-10-extraTop)
-    }
-
-  }).on('mouseleave', e => {
-    hoverdiv.css('display', 'none')
-  })
-
 }
 
 // FUNCTION FOR COMMON LOGIN
@@ -150,11 +32,11 @@ const commonLogin = (options) => {
         success: (data) => {
             let { mssg, success } = data
             if(success){
-              notify({ value: mssg, done: redirect })
+              Notify({ value: mssg, done: () => location.href = redirect })
               btn.attr('value', 'Redirecting..')
               overlay2.show()
             } else {
-              notify({ value: mssg })
+              Notify({ value: mssg })
               btn
                 .attr('value', defBtnValue)
                 .removeClass('a_disabled')
@@ -165,71 +47,28 @@ const commonLogin = (options) => {
     })
 }
 
+// TO REMOVE LINE OF LAST ELEMENT
+const last_line_remover = () => {
+  $('.modal_main').children().eq($('.display_content').children().length - 1).find('hr').remove()
+}
+
+// FUNCTION TO CAPITALIZE FIRST LETTER OF A WORD
 const capitilize_first = (str) => {
   return str.charAt(0).toUpperCase()+str.substr(1)
 }
 
-const time_ago = time => {
-
-  switch (typeof time) {
-    case 'number':
-      break;
-    case 'string':
-      time = +new Date(time);
-      break;
-    case 'object':
-      if (time.constructor === Date) time = time.getTime();
-      break;
-    default:
-      time = +new Date();
-  }
-
-  var time_formats = [
-    [60, 'secs', 1], // 60
-    [120, '1 min ago', '1 min from now'], // 60*2
-    [3600, 'mins', 60], // 60*60, 60
-    [7200, '1 hour ago', '1 hour from now'], // 60*60*2
-    [86400, 'hours', 3600], // 60*60*24, 60*60
-    [172800, 'Yesterday', 'Tomorrow'], // 60*60*24*2
-    [604800, 'days', 86400], // 60*60*24*7, 60*60*24
-    [1209600, 'Last week', 'Next week'], // 60*60*24*7*4*2
-    [2419200, 'weeks', 604800], // 60*60*24*7*4, 60*60*24*7
-    [4838400, 'Last month', 'Next month'], // 60*60*24*7*4*2
-    [29030400, 'months', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-    [58060800, 'Last year', 'Next year'], // 60*60*24*7*4*12*2
-    [2903040000, 'years', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
-    [5806080000, 'Last century', 'Next century'], // 60*60*24*7*4*12*100*2
-    [58060800000, 'centuries', 2903040000] // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
-  ]
-
-  var seconds = (+new Date() - time) / 1000,
-    token = 'ago',
-    list_choice = 1;
-
-  if (seconds == 0) {
-    return 'Just now'
-  }
-  if (seconds < 0) {
-    seconds = Math.abs(seconds);
-    token = 'from now';
-    list_choice = 2;
-  }
-  var i = 0,
-    format;
-  while (format = time_formats[i++])
-    if (seconds < format[0]) {
-      if (typeof format[2] == 'string')
-        return format[list_choice];
-      else
-        return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
-    }
-  return time;
-}
-
+// FUNCTION TO CHECK WHETHER ITS ME OR NOT
 const MeOrNot = user => {
   return user == $('#data').data('session') ? true : false
 }
 
+// FUNCTION TO CHECK WHETHER EMAIL IS ACTIVATED ON NOT
+const e_verified = () => {
+  let ea = $('.data').data('email-verified')
+  return ea == "yes" ? true : false
+}
+
+// TO FOLLOW
 const follow = options => {
   let defaults = {
     user: null,
@@ -258,7 +97,7 @@ const follow = options => {
 
       update_followers ? dispatch(follow_action.follower(data)) : null
       update_followings ? dispatch(follow_action.following(fwing)) : null
-      notify({ value: 'Followed' })
+      Notify({ value: 'Followed' })
       done()
 
     }
@@ -266,6 +105,7 @@ const follow = options => {
 
 }
 
+// TO UNFOLLOW
 const unfollow = options => {
   let defaults = {
     user: null,
@@ -285,13 +125,14 @@ const unfollow = options => {
     success: data => {
         update_followers ? dispatch(follow_action.unfollower($('#data').data('session'))) : null
         update_followings ? dispatch(follow_action.unfollowing(user)) : null
-        notify({ value: 'Unfollowed' })
+        Notify({ value: 'Unfollowed' })
         done()
     }
   })
 
 }
 
+// FOR DELETING A NOTE
 const delete_note = options => {
   let { note_id, dispatch } = options
   $.ajax({
@@ -300,12 +141,13 @@ const delete_note = options => {
     data: { note: note_id },
     dataType: "JSON",
     success: data => {
-        notify({ value: data.mssg })
+        Notify({ value: data.mssg })
         dispatch(notes_actions.delete_note(note_id))
     }
   })
 }
 
+// FOR EDITING A NOTE
 const edit_note = options => {
   let { title, content, note_id, dispatch, done } = options
   $.ajax({
@@ -318,13 +160,14 @@ const edit_note = options => {
     },
     dataType: "JSON",
     success: data => {
-        notify({ value: data.mssg })
+        Notify({ value: data.mssg })
         dispatch(notes_actions.edit_note({title, content, note_id}))
         done()
     }
   })
 }
 
+// TO LIKE THE NOTE
 const like = options => {
   let { note, dispatch, done } = options
   $.ajax({
@@ -333,13 +176,14 @@ const like = options => {
     method: "POST",
     dataType: "JSON",
     success: data => {
-        notify({ value: "Liked" })
+        Notify({ value: "Liked" })
         dispatch(note_int_actions.liked(data))
         done()
     }
   })
 }
 
+// TO UNLIKE THE NOTE
 const unlike = options => {
   let { note, dispatch, done } = options
   $.ajax({
@@ -348,26 +192,115 @@ const unlike = options => {
     method: "POST",
     dataType: "JSON",
     success: data => {
-        notify({ value: "Unliked" })
+        Notify({ value: "Unliked" })
         dispatch(note_int_actions.unliked(note))
         done()
     }
   })
 }
 
+// FUNCTION FOR EDTITNG PROFILE
+const edit_profile = options => {
+  P.coroutine(function *(){
+
+    let 
+      { susername, semail } = options,
+      username = $('.e_username').val(),
+      email = $('.e_email').val(),
+      bio = $('.e_bio').val(),
+      button = $('.e_done'),
+      uCount = yield axios.post('/api/what-exists', { what: "username", value: username }),
+      eCount = yield axios.post('/api/what-exists', { what: "email", value: email })
+    
+    button.addClass('a_disabled').text('Processing..').blur()
+
+    if(!username){
+        Notify({ value: "Username must not be empty!" })
+    } else if(!email){
+        Notify({ value: "Email must not be empty!" })
+    } else if(uCount.data == 1 && username != susername){
+        Notify({ value: "Username already exists!" })
+    } else if(eCount.data == 1 && email != semail){
+        Notify({ value: "Email already exists!" })
+    } else {
+
+      let 
+        edit = yield axios.post('/api/edit-profile', { username, email, bio }),
+        { mssg, success } = edit.data
+        
+      Notify({ value: mssg, done: () => success ? location.reload() : null })
+
+    }
+
+    button.removeClass('a_disabled').text('Done Editing').blur()
+
+  })().catch(e => console.log(e.stack) )
+
+}
+
+const change_avatar = options => {
+  let 
+    { file } = options,
+    { name, size, type } = file,
+    allowed = ['image/png', 'image/jpeg', 'image/gif']
+        
+  if(!allowed.includes(type)){
+      Notify({ value: "Only images allowed!" })
+  } else {
+      let form = new FormData()
+      form.append('avatar', file)
+      $.ajax({
+          url: "/api/change_avatar",
+          method: "POST",
+          processData: false,
+          contentType: false,
+          data: form,
+          dataType: "JSON",
+          success: data => {
+              console.log(data)
+              Notify({ value: data.mssg, done: () => location.reload() })
+          }
+      })
+  }
+           
+}
+
+// FUNCTION FOR RE-SENDING EMAIL VERIFICATION LINK
+const resend_vl = () => {
+  let 
+    vl = $('.resend_vl'),
+    o = $('.overlay-2')
+
+  vl
+    .addClass('a_disabled')
+    .text('Sending verification link..')
+  o.show()
+  axios.post('/api/resend_vl')
+    .then(s => {
+        Notify({ value: s.data.mssg })
+        vl
+          .removeClass('a_disabled')
+          .text('Send verification link')
+          .blur()
+        o.hide()
+    })
+
+}
+
 module.exports = {
     nameShortener,
-    copyTextToClipboard,
-    notify,
-    description,
     commonLogin,
+    last_line_remover,
     capitilize_first,
-    time_ago,
     MeOrNot,
+    e_verified,
     follow,
     unfollow,
     delete_note,
     edit_note,
     like,
-    unlike
+    unlike,
+    edit_profile,
+    change_avatar,
+    resend_vl
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2017 at 02:14 PM
+-- Generation Time: Jul 13, 2017 at 11:05 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -41,7 +41,6 @@ CREATE TABLE `follow_system` (
 
 INSERT INTO `follow_system` (`follow_id`, `follow_by`, `follow_by_username`, `follow_to`, `follow_to_username`, `follow_time`) VALUES
 (81, 5, 'takkar', 6, 'faiyaz', '1497267362133'),
-(82, 5, 'takkar', 7, 'ghalib', '1497267363166'),
 (85, 8, 'coldplay', 7, 'ghalib', '1497279746775'),
 (86, 8, 'coldplay', 6, 'faiyaz', '1497279747882'),
 (87, 8, 'coldplay', 5, 'takkar', '1497279762184'),
@@ -51,7 +50,8 @@ INSERT INTO `follow_system` (`follow_id`, `follow_by`, `follow_by_username`, `fo
 (100, 6, 'faiyaz', 5, 'takkar', '1497369290821'),
 (101, 7, 'ghalib', 8, 'coldplay', '1497460672631'),
 (103, 7, 'ghalib', 6, 'faiyaz', '1497461741715'),
-(104, 6, 'faiyaz', 7, 'ghalib', '1497614091324');
+(104, 6, 'faiyaz', 7, 'ghalib', '1497614091324'),
+(106, 5, 'takkar', 7, 'ghalib', '1499716311531');
 
 -- --------------------------------------------------------
 
@@ -72,12 +72,14 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`like_id`, `like_by`, `like_by_username`, `note_id`, `like_time`) VALUES
-(20, 5, 'takkar', 76, '1497609159054'),
 (30, 7, 'ghalib', 74, '1497613899085'),
 (31, 7, 'ghalib', 61, '1497613909800'),
 (32, 6, 'faiyaz', 76, '1497613932622'),
 (33, 6, 'faiyaz', 70, '1497614006858'),
-(35, 6, 'faiyaz', 74, '1497614088181');
+(35, 6, 'faiyaz', 74, '1497614088181'),
+(39, 5, 'takkar', 61, '1499168933883'),
+(43, 5, 'takkar', 80, '1499176614336'),
+(44, 5, 'takkar', 76, '1499352487259');
 
 -- --------------------------------------------------------
 
@@ -104,7 +106,9 @@ INSERT INTO `notes` (`note_id`, `user`, `username`, `title`, `content`, `note_ti
 (73, 8, 'coldplay', 'coldplay', '.....', '1497279792645'),
 (74, 8, 'coldplay', 'k', 'k', '1497279939388'),
 (75, 7, 'ghalib', 'Note...', '???????', '1497357617034'),
-(76, 7, 'ghalib', 'Jkjkj', 'Kkj', '1497541687310');
+(76, 7, 'ghalib', 'Jkjkj', 'Kkj', '1497541687310'),
+(80, 5, 'takkar', 'Note.', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', '1499168254855'),
+(86, 5, 'takkar', 'jjkjk', 'jk', '1499703894881');
 
 -- --------------------------------------------------------
 
@@ -193,7 +197,10 @@ INSERT INTO `profile_views` (`view_id`, `view_by`, `view_by_username`, `view_to`
 (119, 7, 'ghalib', 8, '1497461965900'),
 (120, 7, 'ghalib', 8, '1497461986236'),
 (121, 7, 'ghalib', 8, '1497462113440'),
-(122, 7, 'ghalib', 8, '1497462143823');
+(122, 7, 'ghalib', 8, '1497462143823'),
+(123, 5, 'takkar', 7, '1499716299083'),
+(124, 5, 'takkar', 6, '1499976560514'),
+(125, 5, 'takkar', 6, '1499976668304');
 
 -- --------------------------------------------------------
 
@@ -204,9 +211,10 @@ INSERT INTO `profile_views` (`view_id`, `view_by`, `view_by_username`, `view_to`
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(32) NOT NULL,
-  `email` varchar(200) NOT NULL,
+  `email` varchar(500) NOT NULL,
   `password` varchar(500) NOT NULL,
   `bio` varchar(500) NOT NULL,
+  `email_verified` enum('yes','no') NOT NULL DEFAULT 'no',
   `joined` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -214,11 +222,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `bio`, `joined`) VALUES
-(5, 'takkar', 'takkar@gmail.com', '$2a$10$sdy1uFQqpBtk8QbAQ61YqehQ73gksod9G8XbA3fqv7lcPEkffgDla', 'Developer of Instagram.', '1497128558168'),
-(6, 'faiyaz', 'faiyaz@gmail.com', '$2a$10$HK.w9QLoBkkp2Tfx12FxKuaJWj2BkBPCR17xZKfk3sJFIVWfj7hma', 'Hello world!!', '1497128554668'),
-(7, 'ghalib', 'ghalib@gmail.com', '$2a$10$S22pBWFlb1t1ZZnNr1pAFOVYBmbo7t.dNdD9JfB0sPsec87sEVsi.', '', '1497128558668'),
-(8, 'coldplay', 'coldplay@gmail.com', '$2a$10$vSjEiBgSckcyBjZCV1AdV.x7e4n5jMte3wBlUWAH1GIEtVMfWlGdW', '', '1497279682801');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `bio`, `email_verified`, `joined`) VALUES
+(5, 'takkar', 'takkar@gmail.com', '$2a$10$sdy1uFQqpBtk8QbAQ61YqehQ73gksod9G8XbA3fqv7lcPEkffgDla', 'Developer of Instagram.', 'yes', '1497128558168'),
+(6, 'faiyaz', 'faiyaz@gmail.com', '$2a$10$HK.w9QLoBkkp2Tfx12FxKuaJWj2BkBPCR17xZKfk3sJFIVWfj7hma', 'Hello world!!', 'yes', '1497128554668'),
+(7, 'ghalib', 'ghalib@gmail.com', '$2a$10$S22pBWFlb1t1ZZnNr1pAFOVYBmbo7t.dNdD9JfB0sPsec87sEVsi.', '', 'yes', '1497128558668'),
+(8, 'coldplay', 'coldplay@gmail.com', '$2a$10$vSjEiBgSckcyBjZCV1AdV.x7e4n5jMte3wBlUWAH1GIEtVMfWlGdW', '', 'yes', '1497279682801');
 
 --
 -- Indexes for dumped tables
@@ -262,27 +270,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `follow_system`
 --
 ALTER TABLE `follow_system`
-  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `follow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 --
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `note_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 --
 -- AUTO_INCREMENT for table `profile_views`
 --
 ALTER TABLE `profile_views`
-  MODIFY `view_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `view_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

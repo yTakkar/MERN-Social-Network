@@ -1,11 +1,10 @@
 const chalk = require('chalk')
 
-const error = chalk.bgRed.bold
-const success = chalk.blue.bold
-
-const s = mssg => console.log(success(mssg))
-
-const e = mssg => console.log(error(mssg))
+const 
+    error = chalk.bgRed.bold,
+    success = chalk.blue.bold,
+    s = mssg => console.log(success(mssg)),
+    e = mssg => console.log(error(mssg))
 
 module.exports = {
     error, 

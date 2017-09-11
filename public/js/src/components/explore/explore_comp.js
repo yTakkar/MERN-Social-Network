@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
+import { FadeIn } from 'animate-components' 
 import Explores from './explores_comp'
 import explore_action from './explore_action'
 
@@ -20,7 +20,9 @@ export default class Explore extends React.Component{
     render(){
         return(
             <div className="explore" >
-                <Explores {...this.props} />
+                <FadeIn duration="300ms">
+                    <Explores {...this.props} />
+                </FadeIn>
             </div>
         )
     }

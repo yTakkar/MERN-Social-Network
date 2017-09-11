@@ -1,6 +1,10 @@
 import React from 'react'
 import $ from 'jquery'
 import axios from 'axios'
+import { FadeIn } from 'animate-components'
+import Notify from 'handy-notification'
+import Tooltip from 'handy-tooltip'
+import TimeAgo from 'handy-timeago'
 
 import * as notes_actions from '../../rest_actions/note_actions'
 import * as note_int_actions from '../../rest_actions/note_int_actions'
@@ -55,7 +59,7 @@ export default class View_note extends React.Component{
             { note_id, dispatch } = this.props
         
         if(title == "" || content == "" ){
-            fn.notify({ value: "Fields are empty!!" })
+            Notify({ value: "Fields are empty!!" })
             this.setState({ editing: true })
         } else {
             let options = { title, content, note_id, dispatch, done: () => this.setState({ editing: false }) }
@@ -82,83 +86,92 @@ export default class View_note extends React.Component{
             session = $('#data').data('session'),
             getid = $('#profile_data').data('getid')
 
-        fn.description({ selector: $('.like_unlike'), text: liked ? "Unlike" : "Like" })
+        Tooltip({
+            selector: $('.like_unlike'),
+            value: liked ? "Unlike" : "Like"
+        })
 
         return(
             <div class='view_note modal'>
-                <div className="v_n_header modal_header">
-                    <span>View note</span>
-                </div>
-                <div className="v_n_middle modal_middle">
-                    <div className="v_n_info">
-                        <img src={`/users/${user}/user.jpg`} alt=""/>
-                        <div className="v_n_left">
-                            <a href={`/profile/${user}`} className='v_n_username' >{username}</a>
-                            <span className="v_n_time">{fn.time_ago(parseInt(note_time))}</span>
+                <FadeIn duration="300ms">
+                    <div className="v_n_header modal_header">
+                        <span>View note</span>
+                    </div>
+                    <div className="v_n_middle modal_middle">
+                        <div className="v_n_info">
+                            <img src={`/users/${user}/user.jpg`} alt=""/>
+                            <div className="v_n_left">
+                                <a href={`/profile/${user}`} className='v_n_username' >{username}</a>
+                                <span className="v_n_time">{TimeAgo(parseInt(note_time))}</span>
+                            </div>
                         </div>
+                        <span 
+                            className='v_n_title' 
+                            contentEditable={editing} 
+                            spellCheck='false' 
+                            suppressContentEditableWarning={true} 
+                        >{fn.capitilize_first(title)}</span>
+                        <span 
+                            className={`v_n_content ${editing ? 'content_editor' : '' } `} 
+                            contentEditable={editing} 
+                            spellCheck='false' 
+                            suppressContentEditableWarning={true} 
+                        >{fn.capitilize_first(content)}</span>
                     </div>
-                    <span 
-                        className='v_n_title' 
-                        contentEditable={editing} 
-                        spellCheck='false' 
-                        suppressContentEditableWarning={true} 
-                    >{fn.capitilize_first(title)}</span>
-                    <span 
-                        className={`v_n_content ${editing ? 'content_editor' : '' } `} 
-                        contentEditable={editing} 
-                        spellCheck='false' 
-                        suppressContentEditableWarning={true} 
-                    >{fn.capitilize_first(content)}</span>
-                </div>
-                <div className="v_n_bottom modal_bottom">
-                    <div className="v_n_int">
+                    <div className="v_n_bottom modal_bottom">
+                        <div className="v_n_int">
+                            {
+                                liked ? 
+                                    <span 
+                                        className={`v_n_unlike like_unlike ${editing ? 'like_unlike_disabled' : '' }`} 
+                                        onClick={this.unlike} 
+                                    >
+                                        <i class="material-icons">favorite</i>
+                                    </span>
+                                : 
+                                    <span 
+                                        className={`v_n_like like_unlike ${editing ? 'like_unlike_disabled' : ''}`} 
+                                        onClick={this.like}
+                                    >
+                                        <i class="material-icons">favorite_border</i>
+                                    </span>
+                            }
+                        </div>
+                        <a 
+                            href='#' 
+                            className={`v_n_likes sec_btn ${editing ? 'sec_btn_disabled' : ''}`} 
+                            onClick={e => this.toggle_(e, "likes") }     
+                        >{`${likes.length} Likes`}
+                        </a>
                         {
-                            liked ? 
-                                <span 
-                                    className={`v_n_unlike like_unlike ${editing ? 'like_unlike_disabled' : '' }`} 
-                                    onClick={this.unlike} 
-                                >
-                                    <i class="material-icons">favorite</i>
-                                </span>
-                            : 
-                                <span 
-                                    className={`v_n_like like_unlike ${editing ? 'like_unlike_disabled' : ''}`} 
-                                    onClick={this.like}
-                                >
-                                    <i class="material-icons">favorite_border</i>
-                                </span>
+                            fn.MeOrNot(getid) ?
+                                editing ? <a 
+                                            href="#" 
+                                            className="v_n_edit sec_btn" 
+                                            onClick={this.done_edit_note} 
+                                        >Done editing</a>
+                                : <a href="#" className="v_n_edit sec_btn" onClick={e => this.toggle_(e, "editing") } >Edit note</a>
+                            : null
+                        }   
+                        {
+                            fn.MeOrNot(getid) ? 
+                                <a 
+                                    href="#" 
+                                    className={`v_n_delete sec_btn ${editing ? 'sec_btn_disabled' : '' } `} 
+                                    onClick={e => this.toggle_(e, "deleting")} 
+                                >Delete note</a> 
+                            : null
                         }
+                        <a href='#' className={`v_n_cancel pri_btn ${editing ? 'a_disabled' : '' } `} onClick={close}>Done</a>
                     </div>
-                    <a 
-                        href='#' 
-                        className={`v_n_likes sec_btn ${editing ? 'sec_btn_disabled' : ''}`} 
-                        onClick={e => this.toggle_(e, "likes") }     
-                    >{`${likes.length} Likes`}
-                    </a>
-                    {
-                        fn.MeOrNot(getid) ?
-                            editing ? <a 
-                                        href="#" 
-                                        className="v_n_edit sec_btn" 
-                                        onClick={this.done_edit_note} 
-                                    >Done editing</a>
-                            : <a href="#" className="v_n_edit sec_btn" onClick={e => this.toggle_(e, "editing") } >Edit note</a>
-                        : null
-                    }   
-                    {
-                        fn.MeOrNot(getid) ? 
-                            <a 
-                                href="#" 
-                                className={`v_n_delete sec_btn ${editing ? 'sec_btn_disabled' : '' } `} 
-                                onClick={e => this.toggle_(e, "deleting")} 
-                            >Delete note</a> 
-                        : null
-                    }
-                    <a href='#' className={`v_n_cancel pri_btn ${editing ? 'a_disabled' : '' } `} onClick={close}>Done</a>
-                </div>
+                </FadeIn>
 
                 { (view_likes || deleting) ? <Hidden_overlay/> : null }
-                { view_likes ? <Likes dispatch={dispatch} close={this.toggle_} likes={likes} /> : null }
+                { 
+                    view_likes ? 
+                        <Likes dispatch={dispatch} close={this.toggle_} likes={likes} /> 
+                    : null 
+                }
                 { 
                     deleting ? 
                         <Prompt 

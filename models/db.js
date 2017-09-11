@@ -1,6 +1,7 @@
-const db = require('./mysql')
-const util = require('util')
-const bcrypt = require('bcrypt-nodejs')
+const 
+    db = require('./mysql'),
+    util = require('util'),
+    bcrypt = require('bcrypt-nodejs')
 
 const query = (q, data) => {
     return new Promise((resolve, reject) => {
