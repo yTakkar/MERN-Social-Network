@@ -629,7 +629,11 @@ select:focus {
 .modal_big .modal_middle {
   height: 450px;
   position: relative;
-  overflow-y: scroll;
+  overflow: auto;
+  padding: 0px !important;
+}
+.modal_big .modal_middle .modal_main {
+  padding: 10px 0px;
 }
 .modal_big .modal_middle .modal_main .modal_items {
   margin-bottom: 5px;
@@ -1074,7 +1078,7 @@ select:focus {
   left: 490px;
   font-size: 14px;
 }
-.edit > * {
+.edit .edit_animate > * {
   display: block;
   width: 100%;
   margin-top: 15px;

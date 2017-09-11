@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { FadeIn } from 'animate-components'
 import $ from 'jquery'
 import Notify from 'handy-notification'
 import TimeAgo from 'handy-timeago'
@@ -21,45 +22,14 @@ export default class Edit extends React.Component{
         file: ""
     }
 
-     componentDidMount = () => {
-         this.props.dispatch(user_action.user_details($('#data').data('session')))
-    }
+     componentDidMount = () => this.props.dispatch(user_action.user_details($('#data').data('session')))
 
-    componentWillReceiveProps = ({ edit: { user_details: { username, email, bio } } }) => {    
-        this.setState({ username, email, bio })
-    }
+    componentWillReceiveProps = ({ edit: { user_details: { username, email, bio } } }) => this.setState({ username, email, bio })
 
      edit_profile = e => {
-        e.preventDefault()
-        let username = $('.e_username').val(),
-            email = $('.e_email').val(),
-            bio = $('.e_bio').val(),
-            button = $('.e_done')
-
-        button.addClass('a_disabled').text('Processing..').blur()
-
-        if(username == ""){
-            Notify({ value: "Username must not be empty!" })
-        } else if(email == ""){
-            Notify({ value: "Email must not be empty!" })
-        } else {
-            $.ajax({
-                url: "/api/edit_profile",
-                method: "POST",
-                data: {
-                    username,
-                    email, 
-                    bio
-                },
-                dataType: "JSON",
-                success: data => {
-                    console.log(data)
-                    Notify({ value: (data.mssg.length > 0) ? data.mssg.slice(0, 1) : data.mssg })
-                }
-            })
-        }
-        button.removeClass('a_disabled').text('Done Editing').blur()
-
+         e.preventDefault()
+         let { username: susername, email: semail } = this.props.edit.user_details
+         fn.edit_profile({ susername, semail })
      }
 
      update_value = (e, of) => {
@@ -76,48 +46,12 @@ export default class Edit extends React.Component{
 
      change_avatar = e => {
         this.update_value(e, "file")
-        let { name, size, type } = e.target.files[0],
-            allowed = ['image/png', 'image/jpeg', 'image/gif']
-        
-        if(!allowed.includes(type)){
-            Notify({ value: "Only images allowed!" })
-        } else {
-            let form = new FormData()
-            form.append('avatar', e.target.files[0])
-            $.ajax({
-                url: "/api/change_avatar",
-                method: "POST",
-                processData: false,
-                contentType: false,
-                data: form,
-                dataType: "JSON",
-                success: data => {
-                    console.log(data)
-                    Notify({ value: data.mssg, done: () => location.reload() })
-                }
-            })
-        }
-            
+        fn.change_avatar({ file: e.target.files[0] }) 
      }
 
      resend_vl = e => {
          e.preventDefault()
-         $('.resend_vl')
-            .addClass('a_disabled')
-            .text('Sending verification link..')
-         $.ajax({
-             url: "/api/resend_vl",
-             method: "POST",
-             dataType: "JSON",
-             success: data => {
-                 console.log(data)
-                 Notify({ value: data.mssg })
-                 $('.resend_vl')
-                    .removeClass('a_disabled')
-                    .text('Send verification link')
-                    .blur()
-             }
-         })
+         fn.resend_vl()
      }
 
     render(){
@@ -127,67 +61,68 @@ export default class Edit extends React.Component{
 
         return(
             <div class='edit' data-username={username} >
-                <div class="edit_info">
-                    <img src={ id ? `/users/${id}/user.jpg` : "/images/spacecraft.jpg" } alt="" />
-                    <span>{`@${username}`}</span>
-                </div>
-                <div className="eu_div">
-                    <span class='edit_span'>Username</span>
-                    <input 
-                        type="text" 
-                        class='e_username' 
-                        placeholder='Username..' 
-                        autoComplete='false' 
-                        autoFocus 
-                        spellCheck='false' 
-                        value={username}
-                        onChange={e => this.update_value(e, "username") }
-                    />
-                </div>
-                <div className="ee_div">
-                    <span class='edit_span'>Email</span>
-                    <input 
-                        type="email"   
-                        class='e_email' 
-                        placeholder='Email..' 
-                        autoComplete='false' 
-                        spellCheck='false' 
-                        value={email} 
-                        onChange={e => this.update_value(e, "email") }
-                    />
-                </div>
-                <div className="eb_div">
-                    <span class='edit_span'>Bio</span>
-                    <textarea 
-                        class="e_bio" 
-                        id="" 
-                        placeholder='Bio..' 
-                        spellCheck='false' 
-                        value={bio} 
-                        onChange={e => this.update_value(e, "bio") }
-                    ></textarea>
-                </div>
-                <div className="eb_btns">
-                    <form class='avatar_form' method="post" encType='multipart/formdata' >
-                        <input type="file" name="avatar" value={file} id="avatar_file" onChange={this.change_avatar} />
-                        <label 
-                            for="avatar_file" 
-                            class={`avatar_span sec_btn ${!fn.e_verified() ? "sec_btn_disabled" : ""}`}
-                        >{fn.e_verified() ? "Change avatar" : "Verify email to change avatar"}</label>
-                    </form>
-                    <a href="#" className="pri_btn e_done" onClick={this.edit_profile} >Done editing</a>
-                </div>
-                <div className="e_joined">
-                    <span>{`You joined Notes App ${user_joined}`}</span>
-                </div>
-
-                {
-                    !fn.e_verified() ?
-                        <div className="resend_vl_div" >
-                            <a href='#' className="pri_btn resend_vl" onClick={this.resend_vl} >Resend verification link</a>
-                        </div>
-                    : null
-                }
+                <FadeIn className="edit_animate" duration="300ms">
+                    <div class="edit_info">
+                        <img src={ id ? `/users/${id}/user.jpg` : "/images/spacecraft.jpg" } alt="" />
+                        <span>{`@${username}`}</span>
+                    </div>
+                    <div className="eu_div">
+                        <span class='edit_span'>Username</span>
+                        <input 
+                            type="text" 
+                            class='e_username' 
+                            placeholder='Username..' 
+                            autoComplete='false' 
+                            autoFocus 
+                            spellCheck='false' 
+                            value={username}
+                            onChange={e => this.update_value(e, "username") }
+                        />
+                    </div>
+                    <div className="ee_div">
+                        <span class='edit_span'>Email</span>
+                        <input 
+                            type="email"   
+                            class='e_email' 
+                            placeholder='Email..' 
+                            autoComplete='false' 
+                            spellCheck='false' 
+                            value={email} 
+                            onChange={e => this.update_value(e, "email") }
+                        />
+                    </div>
+                    <div className="eb_div">
+                        <span class='edit_span'>Bio</span>
+                        <textarea 
+                            class="e_bio" 
+                            id="" 
+                            placeholder='Bio..' 
+                            spellCheck='false' 
+                            value={bio} 
+                            onChange={e => this.update_value(e, "bio") }
+                        ></textarea>
+                    </div>
+                    <div className="eb_btns">
+                        <form class='avatar_form' method="post" encType='multipart/formdata' >
+                            <input type="file" name="avatar" accept="image/*" value={file} id="avatar_file" onChange={this.change_avatar} />
+                            <label 
+                                for="avatar_file" 
+                                class={`avatar_span sec_btn ${!fn.e_verified() ? "sec_btn_disabled" : ""}`}
+                            >{fn.e_verified() ? "Change avatar" : "Verify email to change avatar"}</label>
+                        </form>
+                        <a href="#" className="pri_btn e_done" onClick={this.edit_profile} >Done editing</a>
+                    </div>
+                    <div className="e_joined">
+                        <span>{`You joined Notes App ${user_joined}`}</span>
+                    </div>
+                    {
+                        !fn.e_verified() ?
+                            <div className="resend_vl_div" >
+                                <a href='#' className="pri_btn resend_vl" onClick={this.resend_vl} >Resend verification link</a>
+                            </div>
+                        : null
+                    }
+                </FadeIn>
 
             </div>
         )

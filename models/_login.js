@@ -1,10 +1,11 @@
-const db = require('../models/db')
-const mail = require('../models/mail')
-const chalk = require('./chalk')
-const P = require('bluebird')
-const fs = require('fs')
-const path = require('path')
-const dir = process.cwd()
+const 
+    db = require('../models/db'),
+    mail = require('../models/mail'),
+    chalk = require('./chalk'),
+    P = require('bluebird'),
+    fs = require('fs'),
+    path = require('path'),
+    dir = process.cwd()
 
 const signup = (req, res) => {
     let { body: { username, email, password, password_again }, session } = req
@@ -75,7 +76,7 @@ const signup = (req, res) => {
                             session.id = insertId
                             session.username = username
                             session.email_verified = "no"
-                            res.json({ mssg: "You can login now!!", success: true })
+                            res.json({ mssg: `Hello, ${session.username}!!`, success: true })
                         })
                         .catch(me =>{
                             chalk.e(me)
@@ -115,7 +116,7 @@ const login = (req, res) => {
                     session.username = rusername  
                     session.email_verified = email_verified
 
-                    res.json({ mssg: "Yepp you're the man", success: true })
+                    res.json({ mssg: `Hello, ${session.username}!!`, success: true })
                 }
             }
         }

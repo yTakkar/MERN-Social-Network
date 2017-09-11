@@ -1,6 +1,7 @@
-const db = require('./db')
-const file = require('./file_system')
-const P = require('bluebird')
+const 
+    db = require('./db'),
+    pi = require('handy-image-processor'),
+    P = require('bluebird')
 
 const LoggedIn = (req, res, next) => {
     req.session.id ? next() : res.redirect('/login')
@@ -29,17 +30,13 @@ const not_found = (req, res, next) => {
 const MeOrNot = (req, res, next) => {
     db.query('SELECT COUNT(id) as e FROM users WHERE id=?', [req.params.id])
         .then(is => {
-            if(is[0].e == 0){
-                res.redirect('/error')
-            } else {
-                next()
-            }
+			is[0].e == 0 ? res.redirect('/error') : next()
         })
         .catch(err => console.log(err) )
 }
 
 const delete_temp_images = (req, res, next) => {
-    file.dlt_all_of_folder(process.cwd()+'/public/temp/')
+    pi.DeleteAllOfFolder(process.cwd()+'/public/temp/')
     next()
 }
 

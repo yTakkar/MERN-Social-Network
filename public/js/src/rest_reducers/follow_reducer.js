@@ -7,30 +7,38 @@ const follow_defaults = {
 
 const follow_system = (state=follow_defaults, action) => {
     switch (action.type) {
-        case "IS_FOLLOWING": {
+        case "IS_FOLLOWING": 
             return { ...state, is_following: action.payload }
-        }
-        case "FOLLOWER": {
+            break;
+
+        case "FOLLOWER": 
             return { ...state, followers: follower(state.followers, action.payload) }
-        }
-        case "FOLLOWING": {
+            break;
+
+        case "FOLLOWING": 
             return { ...state, followings: following(state.followings, action.payload) }
-        }
-        case "UNFOLLOWER": {
+            break;
+
+        case "UNFOLLOWER": 
             return { ...state, followers: unfollower(state.followers, action.payload) }
-        }
-        case "UNFOLLOWING": {
+            break;
+
+        case "UNFOLLOWING": 
             return { ...state, followings: unfollowing(state.followings, action.payload) }
-        }
-        case "GET_FOLLOWERS": {
+            break;
+
+        case "GET_FOLLOWERS": 
             return { ...state, followers: action.payload }
-        }
-        case "GET_FOLLOWINGS": {
+            break;
+
+        case "GET_FOLLOWINGS": 
             return { ...state, followings: action.payload }
-        }
-        case "GET_PROFILE_VIEWS": {
+            break;
+            
+        case "GET_PROFILE_VIEWS": 
             return { ...state, profile_views: action.payload }
-        }
+            break;
+
     }
     return state
 }
