@@ -1,4 +1,5 @@
-# * linguist-vendored
-# *.js linguist-vendored=false
-# *.less linguist-vendored=false
-# *.html linguist-vendored=false
+* linguist-vendored
+*.js linguist-vendored=false
+*.less linguist-vendored=false
+*.html linguist-vendored=false
+*.handlebars linguist-vendored=false
