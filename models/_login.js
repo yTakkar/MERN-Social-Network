@@ -1,7 +1,7 @@
-const 
+const
     db = require('../models/db'),
     mail = require('../models/mail'),
-    chalk = require('./chalk'),
+    hl = require('handy-log'),
     P = require('bluebird'),
     fs = require('fs'),
     path = require('path'),
@@ -17,7 +17,7 @@ const signup = (req, res) => {
 
     req.checkBody('email', 'Email is empty').notEmpty()
     req.checkBody('email', 'Email is invalid').isEmail()
-    
+
     req.checkBody('password', 'Password field is empty').notEmpty()
     req.checkBody('password_again', 'Password field is empty').notEmpty()
     req.checkBody('password', 'Passwords don\'t match').equals(password_again)
@@ -43,12 +43,12 @@ const signup = (req, res) => {
                     res.json({ mssg: "Email already exists!" })
                 } else {
                     let newUser = {
-                        username, 
+                        username,
                         email: req.body.email,
                         password,
                         email_verified: "no",
                         joined: new Date().getTime()
-                    }  
+                    }
                     return db.createUser(newUser)
                 }
             })
@@ -72,27 +72,27 @@ const signup = (req, res) => {
                     }
                     mail(options)
                         .then(m =>{
-                            chalk.s(m)
+                            hl.success(m)
                             session.id = insertId
                             session.username = username
                             session.email_verified = "no"
                             res.json({ mssg: `Hello, ${session.username}!!`, success: true })
                         })
                         .catch(me =>{
-                            chalk.e(me)
+                            hl.error(me)
                             res.json({ mssg: "Error sending email!" })
                         })
-                    
+
                 }
             })
-            .catch(err => console.log(chalk.error(err)) )
+            .catch(err => console.log(hl.error(err)) )
     }
 }
 
 const login = (req, res) => {
     P.coroutine(function* (){
         let { body: { username: rusername, password: rpassword }, session } = req
-        req.checkBody('username', 'Username is empty').notEmpty()    
+        req.checkBody('username', 'Username is empty').notEmpty()
         req.checkBody('password', 'Password field is empty').notEmpty()
 
         let errors = req.validationErrors()
@@ -113,37 +113,37 @@ const login = (req, res) => {
                     res.json({ mssg: "Wrong password!" })
                 } else {
                     session.id = id
-                    session.username = rusername  
+                    session.username = rusername
                     session.email_verified = email_verified
 
                     res.json({ mssg: `Hello, ${session.username}!!`, success: true })
                 }
             }
         }
-        
+
     })()
 }
 
 const registered = (req, res) => {
     P.coroutine(function *(){
-        let 
+        let
             title = "You are now registered!",
             { id } = req.session,
             reg = yield db.query("SELECT email_verified FROM users WHERE id=? LIMIT 1", [id]),
             [{ email_verified }] = reg,
             options = Object.assign({}, { title }, { mssg: "Email has been sent. Check your inbox and click on the provided link!!" })
-            
-        email_verified == "yes" ? 
-            res.redirect(`/deep/most/topmost/activate/${id}`) 
-        : 
-            res.render("registered", { options }) 
+
+        email_verified == "yes" ?
+            res.redirect(`/deep/most/topmost/activate/${id}`)
+        :
+            res.render("registered", { options })
 
     })()
 }
 
 const activate = (req, res) => {
     P.coroutine(function *(){
-        let 
+        let
             { params: { id }, session } = req,
             title = "E-mail activation!!",
             act = yield db.query('UPDATE users SET email_verified=? WHERE id=?', ["yes", id]),

@@ -1,7 +1,7 @@
-const 
+const
     app = require('express').Router(),
     db = require('../models/db'),
-    chalk = require('../models/chalk'),
+    hl = require('handy-log'),
     mw = require('../models/middlewares')
 
 app.get('/welcome', (req, res) => {

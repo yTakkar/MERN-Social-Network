@@ -11,11 +11,11 @@ const
     bodyParser = require('body-parser'),
     validator = require('express-validator'),
     session = require('client-sessions'),
+    hl = require('handy-log'),
     app = express()
 
 // file modules
 const
-    chalk = require('./models/chalk'),
     mainR = require('./routes/main_routes'),
     userR = require('./routes/user_routes'),
     apiR = require('./routes/api_routes'),
@@ -50,4 +50,4 @@ app.use('/api', apiR)
 // Middleware for 404 page
 app.use(mw.not_found)
 
-app.listen(port, () => console.log('App running..') )
+app.listen(port, () => hl.rainbow('App running..') )
