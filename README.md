@@ -1,8 +1,8 @@
 # MERN-Social-Network
-A Notes App developed with MERN stack to explore the speed, power & awesomeness of MERN stack. And boy it's really fast, reactive & fun!!
+A Social Network developed with MERN stack. [OUTDATED]
 
-# Single page application
-Click **[here](https://github.com/yTakkar/Single-Page-Social-Network)** for another version of this project which is an updated, faster & single-page application!!
+# Single Page Application
+This project is outdated and no longer maintained. Click **[here](https://github.com/yTakkar/Single-Page-Social-Network)** for updated & faster version of this project. The updated version is a Single-Page-Application!!
 
 # Quick links
 1. [Screenshots](#screenshots)
